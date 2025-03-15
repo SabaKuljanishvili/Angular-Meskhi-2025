@@ -1,0 +1,44 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    color: #333;
+    line-height: 1.6;
+    background-color: #f5f3ee; 
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  // Variables
+  $gold-primary: #d4af37; // Rich gold
+  $gold-dark: #b8860b; // Darker gold
+  $gold-light: #e4dcc0; // Darker light gold
+  $gold-khaki: #dbc76c; // Darker khaki gold
+  $gold-darkened: #c9a227; // Slightly darker gold
+  
+  $cream: #efe9db; // Darker warm white/cream
+  $ivory: #eae6d9; // Darker ivory
+  $off-white: #f7f5f0; // Off-white instead of pure white
+  $gray-dark: #2d2d2d; // Darker gray
+  
+
+.working-hours {
+    background-color: $gold-khaki;
+    color: #333;
+    text-align: center;
+    padding: 40px 0;
+  
+    h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+  }
