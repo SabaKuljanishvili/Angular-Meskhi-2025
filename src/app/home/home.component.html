@@ -1,107 +1,11 @@
-<!-- Hero Section -->
-<section class="hero">
-    <div class="container">
-      <h1>Meskhi 2000</h1>
-      <p>საუკეთესო ხარისხის მომსახურება და პროდუქცია 2000 წლიდან</p>
-      
-      <!-- Image Slider -->
-      <div class="slider-container">
-        <div class="slider" [style.transform]="'translateX(-' + currentSlide * 20 + '%)'">
-          <div class="slide" *ngFor="let slide of slides">
-            <img [src]="slide.imageUrl" [alt]="slide.alt" />
-          </div>
-        </div>
-        
-        <button class="slider-btn prev-btn" (click)="prevSlide(); resetAutoSlideTimer()">&#10094;</button>
-        <button class="slider-btn next-btn" (click)="nextSlide(); resetAutoSlideTimer()">&#10095;</button>
-        
-        <div class="slider-nav">
-          <div class="slider-dot" 
-            *ngFor="let slide of slides; let i = index" 
-            [class.active]="i === currentSlide"
-            (click)="setCurrentSlide(i); resetAutoSlideTimer()">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Motto Section -->
-  <section class="motto">
-    <div class="container">
-      <p>ჩვენ ვართ კონცენტრირებული მხოლოდ მომხმარებლის კეთილგანწყობაზე, ამიტომაც ჩვენ გთავაზობთ უმაღლესი ხარისხის მომსახურეობას.</p>
-    </div>
-  </section>
-  
-  <!-- Video Section -->
-  <section class="video-section">
-    <div class="container">
-      <h2>Watch Our Process</h2>
-      <div class="video-container">
-        <div class="video-placeholder">
-          Your company video will be displayed here
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Skills Section -->
-  <section id="skills">
-    <div class="container">
-      <h2>Our Skills</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>დამზადება</h3>
-            <p>ვამზადეთ უმაღლესო ხარისხის საჭრისებ, ფრეზებს, ნებისმეირ კონფიგურაციის და მომსახურებოას ვეწევით ცირკული, ლენტური ხერხების, ფრეზების და PCD (ალმასის) ფრეზების გალესვაზე.</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>ჩვენი პროდუქტი</h3>
-            <p>ვამზადებთ ფრეზებს ნებისმიერ კომფიგურაციაზე.როგორც HSS ასევე "პაბედიტით".</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>სამუშოა დრო</h3>
-            <p>ორშაბათი-შაბათი, დილის 9 საათიდან საღაოს 5 საათამდე.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Capabilities Section -->
-  <section id="capabilities" class="products">
-    <div class="container">
-      <h2>Our Capabilities</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>ალესვები</h3>
-            <p>ფრეზის პირების,ინოვაციური სიახლე. PCD (ალმასის) ფრეზების,ლენტური ხერების შედუღება და ალესვა,სტამბის დანების ფუგანების პირების,"კოპირი" ფრეზების ალესვა,ცირკული ხერხის პირების,ფუგანის პირების,ალუმინის,მეტალის და ხის დასამუშავებელი ცირკული ხერხები</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>გამოჩარხვა</h3>
-            <p>ვჩარავთ ნებისმიერი ფრეზს და დანებს უმაღლეს ხარისხში საუკეთესო დანადგარებით.</p>
-          </div>
-        </div>
-        <div class="service-card">
-          <div class="service-card-content">
-            <h3>გრავირება</h3>
-            <p>ვაკეთებთ გრავირებას უმაღლესი ხარისხით უახლესი აპარატურით.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="product-list">
-        <div class="product-item">ლენტური ხერხები</div>
-        <div class="product-item">ფრეზები</div>
-        <div class="product-item">ფუგანები</div>
-        <div class="product-item">ცირკული ხერხები</div>
-      </div>
-    </div>
-  </section>
+   <div class="video-container">
+    <video #videoPlayer src="Meskhi 2000 3 16 2025 13 3 30 Contentcore.Xyz_1.mp4" [muted]="true" [loop]="false" [controls]="false"></video>
+
+
+    <p>"ჩვენ ვართ კონცენტრირებული მხოლოდ მომხმარებლის კეთილგანწყობაზე, ამიტომაც ჩვენ გთავაზობთ უმაღლესი ხარისხის მომსახურეობას"</p>
+
+    <button class="animated-button">
+      <span>გაიგეთ მეტი</span>
+      <span></span>
+    </button>
+  </div> 
