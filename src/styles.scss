@@ -6,6 +6,9 @@ html, body {
     height: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+    background: radial-gradient(circle at bottom, #2c3e50, #0a0e17, #000);
+    margin: 0;
+
   }
   app-root {
     display: block;
