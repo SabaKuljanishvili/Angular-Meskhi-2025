@@ -8,6 +8,7 @@ html, body {
     overflow-x: hidden;
     background: radial-gradient(circle at bottom, #2c3e50, #0a0e17, #000);
     margin: 0;
+    scroll-behavior: smooth;
 
   }
   app-root {
