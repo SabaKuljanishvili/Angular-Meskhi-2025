@@ -9,22 +9,22 @@ import { Component, ElementRef, HostListener, ViewChild, } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  @ViewChild('animatedDiv') animatedDiv!: ElementRef;
+  animateElements: boolean[] = [];
 
-  ngAfterViewInit(): void {
-    this.onScroll(); // თავიდანვე ვამოწმებთ, ჩანს თუ არა ეკრანზე
-  }
+  ngOnInit(): void {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          this.animateElements[index] = true;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
 
-  @HostListener('window:scroll', [])
-  onScroll(): void {
-    if (!this.animatedDiv) return; // დაცვა შეცდომისგან
-    const element = this.animatedDiv.nativeElement;
-    const rect = element.getBoundingClientRect();
-    const isVisible = rect.top < window.innerHeight - 100; // 100px ზღვარი
-
-    if (isVisible) {
-      element.classList.add('scrolled-in');
-    }
+    const elements = document.querySelectorAll('.animate-element');
+    elements.forEach((element, index) => {
+      observer.observe(element);
+    });
   }
 }
 
