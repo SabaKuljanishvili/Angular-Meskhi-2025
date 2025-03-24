@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, ViewChild, } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren, } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -9,21 +9,26 @@ import { Component, ElementRef, HostListener, ViewChild, } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  animateElements: boolean[] = [];
 
-  ngOnInit(): void {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          this.animateElements[index] = true;
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
+  @ViewChildren('scrollAnimate') animatedElements!: QueryList<ElementRef>;
 
-    const elements = document.querySelectorAll('.animate-element');
-    elements.forEach((element, index) => {
-      observer.observe(element);
+  ngAfterViewInit(): void {
+    this.onScroll(); // თავიდანვე შეამოწმოს ელემენტები
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const windowHeight = window.innerHeight;
+
+    this.animatedElements.forEach((elementRef: ElementRef) => {
+      const element = elementRef.nativeElement;
+      const position = element.getBoundingClientRect().top;
+
+      if (position < windowHeight - 100) {
+        element.classList.add('visible');
+      } else {
+        element.classList.remove('visible');
+      }
     });
   }
 }
