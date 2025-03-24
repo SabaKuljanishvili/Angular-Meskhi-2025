@@ -13,7 +13,7 @@ export class HomeComponent {
   @ViewChildren('scrollAnimate') animatedElements!: QueryList<ElementRef>;
 
   ngAfterViewInit(): void {
-    this.onScroll(); // თავიდანვე შეამოწმოს ელემენტები
+    this.onScroll(); 
   }
 
   @HostListener('window:scroll', [])
@@ -31,5 +31,7 @@ export class HomeComponent {
       }
     });
   }
+
+  
 }
 
