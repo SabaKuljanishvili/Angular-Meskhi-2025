@@ -329,52 +329,148 @@ box-shadow:  -20px -20px 60px #0d1319,
   transform: translateY(0);
 }
 
-.services {
-  height: 100vh;
-  background: radial-gradient(
-    circle at center, 
-    #2c3e50 0%, 
-    #0a0e17 100%
-  );
-  .skill-cap {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  max-width: 1200px;
-  gap: 20px;
-  padding-top: 350px;
-  margin: 0 auto;
-  .card {
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 5.5px );
--webkit-backdrop-filter: blur( 5.5px );
-border-radius: 65% 35% 85% 15% / 12% 69% 31% 88% ;
-border: 1px solid rgba( 255, 255, 255, 0.18 );
-    padding: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+// .services {
+//   height: 100vh;
+//   background: radial-gradient(
+//     circle at center, 
+//     #2c3e50 0%, 
+//     #0a0e17 100%
+//   );
+//   .skill-cap {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//   max-width: 1200px;
+//   gap: 20px;
+//   padding-top: 350px;
+//   margin: 0 auto;
+//   .card {
+// box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+// backdrop-filter: blur( 5.5px );
+// -webkit-backdrop-filter: blur( 5.5px );
+// border-radius: 65% 35% 85% 15% / 12% 69% 31% 88% ;
+// border: 1px solid rgba( 255, 255, 255, 0.18 );
+//     padding: 20px;
+//     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    h2 {
-      font-size: 1.5rem;
-      color: $gold-light;
-      margin-bottom: 15px;
-    }
+//     h2 {
+//       font-size: 1.5rem;
+//       color: $gold-light;
+//       margin-bottom: 15px;
+//     }
 
-    p {
-      font-size: 1rem;
-      color: #666;
-      line-height: 1.6;
-    }
+//     p {
+//       font-size: 1rem;
+//       color: #666;
+//       line-height: 1.6;
+//     }
 
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-  }
+//     &:hover {
+//       transform: translateY(-10px);
+//       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+//     }
+//   }
+// }
+// .sk {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     color: $gold-darkened;
+//     font-size: 2.5rem;
+// }
+// }
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.sk {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: $gold-darkened;
-    font-size: 2.5rem;
+
+@mixin transition-smooth {
+  transition: all 0.3s ease-in-out;
+}
+.services {
+   height: 100vh;
+   background: radial-gradient(
+   circle at center, 
+    #2c3e50 0%, 
+     #0a0e17 100%
+    );
+.skills-section {
+  padding: 9rem 2rem;
+  
+  .skills-title {
+      text-align: center;
+      color: $gold-primary;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      font-weight: bold;
+      text-shadow: 0 2px 4px rgba($gold-primary, 0.3);
+  }
+
+  .skills-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+  }
+
+  .skill-card {
+      flex: 1;
+      background: rgba($gray-dark, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid $border-color;
+      border-radius: 15px;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      @include transition-smooth;
+
+      &:hover {
+          transform: translateY(-15px);
+          box-shadow: 0 15px 40px rgba($gold-primary, 0.2);
+          background: rgba($gray-dark, 0.7);
+      }
+
+      .skill-icon {
+          @include flex-center;
+          width: 100px;
+          height: 100px;
+          margin: 0 auto 1.5rem;
+          border-radius: 50%;
+          background: rgba($gold-primary, 0.1);
+          border: 2px solid rgba($gold-primary, 0.3);
+          
+          i {
+              font-size: 3rem;
+              color: $gold-primary;
+              text-shadow: 0 2px 4px rgba($gold-primary, 0.3);
+          }
+      }
+
+      .skill-subtitle {
+          color: $gold-primary;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+      }
+
+      .skill-description {
+          color: $cream;
+          line-height: 1.6;
+          font-size: 0.9rem;
+      }
+  }
+
+  // Responsive Design
+  @media screen and (max-width: 1024px) {
+      .skills-container {
+          flex-direction: column;
+      }
+
+      .skill-card {
+          margin-bottom: 1rem;
+      }
+  }
 }
 }
