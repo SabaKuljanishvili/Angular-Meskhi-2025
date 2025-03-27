@@ -379,6 +379,10 @@ box-shadow:  -20px -20px 60px #0d1319,
 // }
 // }
 // Mixins
+
+
+
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -436,7 +440,10 @@ box-shadow:  -20px -20px 60px #0d1319,
           height: 100px;
           margin: 0 auto 1.5rem;
           border-radius: 50%;
-          background: rgba($gold-primary, 0.1);
+          background: url(/logo.png);
+          background-size: cover;
+          background-position: center;
+          
           border: 2px solid rgba($gold-primary, 0.3);
           
           i {
