@@ -1,121 +1,19 @@
-// Dark color palette
+
 $dark-bg: #1a1a2e;
 $dark-card-bg: #16213e;
-$primary-color: #0f3460;
 $accent-color: #e94560;
 $text-light: #f4f4f4;
 $text-muted: #a0a0a0;
-
-// Keyframes for background animation
-@keyframes moveGradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@keyframes particleAnimation {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.7;
-    }
-    100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-body {
-    background: linear-gradient(
-        -45deg, 
-        #1a1a2e, 
-        #16213e, 
-        #0f3460, 
-        #e94560
-    );
-    background-size: 400% 400%;
-    animation: moveGradient 15s ease infinite;
-    position: relative;
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    &::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: -1;
-    }
-
-    // Particle effect
-    &::after {
-        content: '';
-        position: fixed;
-        top: -50px;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: transparent;
-        z-index: -2;
-    }
-}
-
-// // Particle mixin
-// @mixin createParticles($count, $color) {
-//     @for $i from 1 through $count {
-//         .particle:nth-child(#{$i}) {
-//             $size: random(10) + px;
-//             $duration: random(20) + 10s;
-//             $delay: random(10) + s;
-//             $left: random(100) + %;
-
-//             position: absolute;
-//             bottom: -50px;
-//             left: $left;
-//             width: $size;
-//             height: $size;
-//             background-color: $color;
-//             border-radius: 50%;
-//             animation: particleAnimation $duration linear infinite $delay;
-//             opacity: 0.7;
-//         }
-//     }
-
-
-// // Particle generation
-// @for $i from 1 through 50 {
-//     .particle:nth-child(#{$i}) {
-//         $size: random(10) + px;
-//         $duration: random(20) + 10s;
-//         $delay: random(10) + s;
-//         $left: random(100) + %;
-
-//         position: absolute;
-//         bottom: -50px;
-//         left: $left;
-//         width: $size;
-//         height: $size;
-//         background-color: rgba(255, 255, 255, 0.1);
-//         border-radius: 50%;
-//         animation: particleAnimation $duration linear infinite $delay;
-//         opacity: 0.7;
-//     }
-
-
+$gray-dark: #2d2d2d; 
+$gold-khaki: #dbc76c; // Darker khaki gold
+$gold-darkened: #c9a227; // Slightly darker gold
+$gold-primary: #d4af37; // Rich gold
 .contact-form {
     max-width: 95%; // Increased width
     width: 800px; // Fixed width with more flexibility
     margin: 2rem auto;
     padding: 2rem;
-    background-color: rgba($dark-card-bg, 0.8);
+    background: rgba($gray-dark, 0.5);
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px); // Glass morphism effect
@@ -142,15 +40,15 @@ body {
             width: 100%;
             padding: 0.75rem;
             background-color: rgba($dark-bg, 0.7);
-            border: 1px solid $primary-color;
+            border: none !important;
             border-radius: 5px;
             color: $text-light;
             transition: all 0.3s ease;
 
             &:focus {
                 outline: none;
-                border-color: $accent-color;
-                box-shadow: 0 0 10px rgba($accent-color, 0.5);
+                border-color: $gold-khaki;
+                box-shadow: 0 0 10px rgba($gold-khaki, 0.5);
             }
 
             &::placeholder {
@@ -167,7 +65,7 @@ body {
     .submit-btn {
         width: 100%;
         padding: 1rem;
-        background-color: $accent-color;
+        background-color: $gold-darkened;
         color: $text-light;
         border: none;
         border-radius: 5px;
@@ -176,7 +74,7 @@ body {
         transition: all 0.3s ease;
 
         &:hover {
-            background-color: darken($accent-color, 10%);
+            background-color: darken($gold-primary, 10%);
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
