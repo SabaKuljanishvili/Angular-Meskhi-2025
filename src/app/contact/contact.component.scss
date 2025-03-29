@@ -8,6 +8,22 @@ $gray-dark: #2d2d2d;
 $gold-khaki: #dbc76c; // Darker khaki gold
 $gold-darkened: #c9a227; // Slightly darker gold
 $gold-primary: #d4af37; // Rich gold
+
+
+section {
+
+    height: 90vh;
+
+    p{
+        color: $gold-darkened;
+        text-shadow: 6px 9px 1px  #16213e;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+        max-width: 480px;
+        width: 100%;
+        margin: 70px auto;
+    }
 .contact-form {
     max-width: 95%; // Increased width
     width: 800px; // Fixed width with more flexibility
@@ -17,6 +33,7 @@ $gold-primary: #d4af37; // Rich gold
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px); // Glass morphism effect
+
 
     h2 {
         color: $text-light;
@@ -103,4 +120,5 @@ $gold-primary: #d4af37; // Rich gold
     height: 100%;
     pointer-events: none;
     z-index: -1;
+}
 }
