@@ -1,16 +1,18 @@
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                   <a href="#main" ><img src="logo.png" alt="" ></a> 
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#about">About </a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#">##</a></li>
-                    <li><a href="#">##</a></li>
-                </ul>
-                <a href="#contact" class="contact-button">Contact Us</a>
-            </nav>
-        </div>
-    </header> 
+<nav class="navbar">
+  <div class="navbar-container">
+    <h1 class="navbar-logo">G-M-S</h1>
+    
+    <button class="burger-menu" [class.active]="isMenuOpen" (click)="toggleMenu()" aria-label="Toggle menu">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+    
+    <ul class="navbar-menu" [class.active]="isMenuOpen" (clickOutside)="closeMenu()">
+      <li><a routerLink="/home" [routerLinkActive]="activeRouteClass" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/contact" [routerLinkActive]="activeRouteClass" (click)="closeMenu()">Contact</a></li>
+      <li><a routerLink="/about" [routerLinkActive]="activeRouteClass" (click)="closeMenu()">About</a></li>
+      
+    </ul>
+  </div>
+</nav>
