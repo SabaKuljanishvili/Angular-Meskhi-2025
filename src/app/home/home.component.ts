@@ -9,5 +9,6 @@ import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  
 }
 

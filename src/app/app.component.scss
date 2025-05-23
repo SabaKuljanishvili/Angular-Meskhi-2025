@@ -1,0 +1,14 @@
+$primary: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #a5b4fc;
+$secondary: #1e293b;
+$accent: #f43f5e;
+$light: #f8fafc;
+$dark: #0f172a;
+$gray: #94a3b8;
+$font-main: 'Poppins', sans-serif;
+
+$gradient-primary: linear-gradient(135deg, $primary, $primary-dark);
+$gradient-dark: linear-gradient(135deg, darken($dark, 5%), darken($secondary, 8%));
+$transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
