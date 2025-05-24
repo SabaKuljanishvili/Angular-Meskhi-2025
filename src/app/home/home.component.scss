@@ -362,7 +362,7 @@ a {
 
 // Scroll animations with pure CSS
 .scroll-animate {
-  opacity: 0;
+  opacity: 1;
   animation: fadeInUp 0.8s ease forwards;
   
   // Use scroll margin to control when animation happens
@@ -372,21 +372,18 @@ a {
 // Set animation delays for staggered effect
 .skill-card {
   &:nth-child(1) { animation-delay: 0.1s; }
-  &:nth-child(2) { animation-delay: 0.2s; }
-  &:nth-child(3) { animation-delay: 0.3s; }
-  &:nth-child(4) { animation-delay: 0.4s; }
-  &:nth-child(5) { animation-delay: 0.5s; }
-  &:nth-child(6) { animation-delay: 0.6s; }
+  &:nth-child(2) { animation-delay: 0.2s; margin-top: 20px;}
+  &:nth-child(3) { animation-delay: 0.3s; margin-top: 30px;}
+  &:nth-child(4) { animation-delay: 0.4s; margin-top: 30px;margin-bottom: 50px;}
+  &:nth-child(5) { animation-delay: 0.5s; margin-top: 20px; margin-bottom: 60px;}
+  &:nth-child(6) { animation-delay: 0.6s; margin-bottom: 70px;}
 }
 
-// Trigger animations when element is in viewport
-// This uses the :target pseudo-class as a CSS-only solution
-// Elements will animate when they become the URL target
 .scroll-animate:target {
   animation-play-state: running;
 }
 
-// Make everything visible by default (for non-supporting browsers)
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-animate {
     opacity: 1;
@@ -416,20 +413,21 @@ a {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border: 5px solid rgba($gold-primary, 0.2);
+    border: 1px solid rgba($gold-primary, 0.2);
+    border-radius: 39% 61% 61% 39% / 39% 32% 68% 61% ;
     transition: transform 0.5s ease;
     animation: borderPulse 4s ease infinite;
     
     &:hover {
-      transform: scale(1.02);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      transform: scale(1.01);
     }
     
     img {
-      max-width: 100%;
+      max-width: 90%;
       height: auto;
       display: block;
       opacity: 1;
-      background-color: red;
       transition: transform 0.5s ease;
       
       &:hover {
@@ -539,8 +537,8 @@ a {
 .skills-section {
   padding: 100px 0;
   position: relative;
-  background: rgba($dark-bg-end, 0.8);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  // background: rgba($dark-bg-end, 0.8);
+  // box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 50px 0;
   
