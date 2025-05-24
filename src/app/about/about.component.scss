@@ -1,0 +1,416 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+$gold-primary: #d4af37; // Rich gold
+$gold-dark: #b8860b; // Darker gold
+$gold-light: #e4dcc0; // Darker light gold
+$gold-khaki: #dbc76c; // Darker khaki gold
+$gold-darkened: #c9a227; // Slightly darker gold
+  
+$cream: #efe9db; // Darker warm white/cream
+$ivory: #eae6d9; // Darker ivory
+$off-white: #f7f5f0; // Off-white instead of pure white
+$gray-dark: #2d2d2d; // Darker gray
+$dark-bg-start: #1a2a3a;
+$dark-bg-end: #0c1824;
+$text-color: $off-white;
+$border-color: rgba(255, 255, 255, 0.1);
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $gold-primary;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  font-size: 2.5rem;
+  position: relative;
+  padding-bottom: 15px;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: $gold-dark;
+  }
+}
+
+p {
+  margin-bottom: 1.5rem;
+  color: $text-color;
+}
+
+a {
+  color: $gold-primary;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $gold-light;
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 30px;
+  background: $gold-primary;
+  color: $gray-dark;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: $gold-dark;
+    transition: all 0.4s ease;
+    z-index: -1;
+  }
+  
+  &:hover {
+    color: $off-white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    
+    &:before {
+      left: 0;
+    }
+  }
+  
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba($gold-primary, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba($gold-primary, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba($gold-primary, 0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes borderPulse {
+  0% {
+    border-color: rgba($gold-primary, 0.2);
+  }
+  50% {
+    border-color: rgba($gold-primary, 0.6);
+  }
+  100% {
+    border-color: rgba($gold-primary, 0.2);
+  }
+}
+
+
+
+// About section
+.about-section {
+  padding: 100px 0;
+  position: relative;
+  
+  .content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    
+    @media (max-width: 992px) {
+      flex-direction: column;
+    }
+  }
+  
+  .person-image {
+    flex: 0 0 40%;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba($gold-primary, 0.2);
+    border-radius:31% 69% 76% 24% / 48% 33% 67% 52%  ;
+    transition: transform 0.5s ease;
+    animation: borderPulse 4s ease infinite;
+    
+    &:hover {
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      transform: scale(1.01);
+    }
+    
+    img {
+      max-width: 80%;
+      height: auto;
+      display: block;
+      opacity: 1;
+      transition: transform 0.5s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border-top: 5px solid $gold-primary;
+      border-right: 5px solid $gold-primary;
+      animation: pulse 2s infinite;
+    }
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      width: 80px;
+      height: 80px;
+      border-bottom: 5px solid $gold-primary;
+      border-left: 5px solid $gold-primary;
+      animation: pulse 2s infinite 1s;
+    }
+  }
+  
+  .about-content {
+    flex: 0 0 50%;
+    
+    h2 {
+      margin-bottom: 10px;
+      
+      &:after {
+        width: 80px;
+      }
+    }
+    
+    .founder-name {
+      font-size: 1.8rem;
+      color: $gold-khaki;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+    
+    .company-description {
+      margin-bottom: 25px;
+      
+      p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+    }
+    
+    .slogan {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: $gold-light;
+      margin-bottom: 30px;
+      padding-left: 15px;
+      border-left: 3px solid $gold-primary;
+      line-height: 1.6;
+    }
+  }
+}
+
+.bigword {
+  padding: 50px 0;
+  text-align: center;
+  
+  p {
+    font-size: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    font-style: italic;
+    color: $gold-light;
+    position: relative;
+    padding: 20px 40px;
+    animation: float 6s ease-in-out infinite;
+    
+    &:before, &:after {
+      content: '"';
+      font-size: 4rem;
+      color: rgba($gold-primary, 0.2);
+      position: absolute;
+      line-height: 1;
+    }
+    
+    &:before {
+      top: -10px;
+      left: 0;
+    }
+    
+    &:after {
+      bottom: -30px;
+      right: 0;
+    }
+  }
+}
+
+
+
+
+// Helper classes for special animations
+.gold-text {
+  color: $gold-primary;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(90deg, $gold-primary, $gold-light, $gold-dark, $gold-primary);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+
+
+@media (max-width: 992px) {
+  .about-section .content-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .about-section .content-wrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  .bigword p {
+    font-size: 1.2rem;
+    padding: 15px 25px;
+  }
+  
+}
+
+// Print styles
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: $gold-dark;
+  }
+  
+  
+  .person-image:before, .person-image:after {
+    display: none;
+  }
+  
+  // Hide animations in print
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
