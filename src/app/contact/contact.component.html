@@ -1,3 +1,24 @@
+  <!-- <section class="contact">
+  <a class="text">ჩვენი საკონტაქტო ინფორმაცია</a> 
+    <div class="cards">
+        <div class="card red">
+            <p class="tip">Gmail</p>
+            <p class="second-text">Meskhi.2000.f#gmail.com</p>
+        </div>
+        <div class="card blue">
+            <p class="tip">ოფისი</p>
+            <p class="second-text">(+995)598-014-014</p>
+        </div>
+        <div class="card green">
+            <p class="tip">WhatsApp</p>
+            <p class="second-text">(+995)597-922-922</p>
+        </div>
+        <div class="card black">
+            <p class="tip">WeChat</p>
+            <p class="second-text">(+995)597-922-922</p>
+        </div>
+              </div>
+
 <section>
 <form class="contact-form" action="#" method="post" id="contact">
     <h2>Contact Us</h2>
@@ -26,4 +47,143 @@
 </form>
 
 <p>მალე გიპასუხებთ, პასუხი მოხდება 24-საათის განმავლობაში, წინააღმდეგ შემთხვევაში დაგვიკავშირდით ნომერზე</p>
+</section>
+<div class="maps">
+      <div class="container1">
+        <h1>Explore Our location</h1>
+        <div class="map-container1">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3791.4451372253293!2d44.894502!3d41.6691668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d23fa041859%3A0xf2ef2beb03bae82e!2sMeskhi-2000!5e1!3m2!1sen!2sge!4v1711039514647!5m2!1sen!2sge" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div> 
+ </section> -->
+
+
+ <section class="contact">
+  <div class="header-container">
+    <h1 class="text">ჩვენი საკონტაქტო ინფორმაცია</h1> 
+  </div>
+  
+  <div class="contact-map-container">
+    <!-- Left Side - Contact Cards and Form -->
+    <div class="contact-form-section">
+      <!-- Contact Cards -->
+      <div class="cards">
+        <div 
+          class="card" 
+          [ngClass]="card.type"
+          *ngFor="let card of contactCards; trackBy: trackByCardType"
+        >
+          <p class="tip">{{ card.title }}</p>
+          <p class="second-text">{{ card.info }}</p>
+        </div>
+      </div>
+      
+      <!-- Contact Form -->
+      <form 
+        class="contact-form" 
+        [formGroup]="contactForm" 
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+        <h2>დაგვიკავშირდით</h2>
+        
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="name">სახელი და გვარი *</label>
+          <input 
+            type="text" 
+            id="name" 
+            formControlName="name"
+            placeholder="შეიყვანეთ თქვენი სახელი და გვარი"
+            [class.error]="isFieldInvalid('name')"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('name')">
+            {{ getFieldError('name') }}
+          </div>
+        </div>
+        
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">ელ. ფოსტა *</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="შეიყვანეთ თქვენი ელ. ფოსტა"
+            [class.error]="isFieldInvalid('email')"
+          >
+          <div class="error-message" *ngIf="isFieldInvalid('email')">
+            {{ getFieldError('email') }}
+          </div>
+        </div>
+        
+        <!-- Phone Field -->
+        <div class="form-group">
+          <label for="phone">ტელეფონის ნომერი (არასავალდებულო)</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            formControlName="phone"
+            placeholder="შეიყვანეთ თქვენი ტელეფონის ნომერი"
+          >
+        </div>
+        
+        <!-- Message Field -->
+        <div class="form-group">
+          <label for="message">თქვენი შეტყობინება *</label>
+          <textarea 
+            id="message" 
+            formControlName="message"
+            placeholder="დაწერეთ თქვენი შეტყობინება აქ"
+            [class.error]="isFieldInvalid('message')"
+          ></textarea>
+          <div class="error-message" *ngIf="isFieldInvalid('message')">
+            {{ getFieldError('message') }}
+          </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="submit-btn"
+          [disabled]="isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">შეტყობინების გაგზავნა</span>
+          <span *ngIf="isSubmitting" class="loading">იგზავნება...</span>
+        </button>
+      </form>
+      
+      <!-- Response Message -->
+      <p class="response-message" [ngClass]="{'success': showSuccessMessage}">
+        <span *ngIf="!showSuccessMessage">
+          მალე გიპასუხებთ, პასუხი მოხდება 24-საათის განმავლობაში, წინააღმდეგ შემთხვევაში დაგვიკავშირდით ნომერზე
+        </span>
+        <span *ngIf="showSuccessMessage">
+          მადლობთ! თქვენი შეტყობინება გაიგზავნა წარმატებით. მალე გიპასუხებთ!
+        </span>
+      </p>
+    </div>
+    
+    <!-- Right Side - Map -->
+    <div class="map-section">
+      <div class="maps">
+        <div class="container1">
+          <h1>ჩვენი მდებარეობა</h1>
+          <div class="map-container1">
+            <iframe 
+              [src]="mapUrl"
+              width="600" 
+              height="450" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Meskhi-2000 Location"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

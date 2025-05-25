@@ -1,124 +1,1537 @@
+// // Variables
+// $dark-bg: #1a1a2e;
+// $dark-card-bg: #16213e;
+// $accent-color: #e94560;
+// $text-light: #f4f4f4;
+// $text-muted: #a0a0a0;
+// $gray-dark: #2d2d2d; 
+// $gold-khaki: #dbc76c;
+// $gold-darkened: #c9a227;
+// $gold-primary: #d4af37;
 
-$dark-bg: #1a1a2e;
-$dark-card-bg: #16213e;
+// // Contact Header
+// .text {
+//   color: $text-light;
+//   font-size: 2.5rem;
+//   font-weight: bold;
+//   text-align: center;
+//   margin-bottom: 3rem;
+//   text-decoration: none;
+  
+//   &:hover {
+//     color: $gold-primary;
+//     transition: color 0.3s ease;
+//   }
+// }
+
+// // Contact Cards
+// .cards {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+//   gap: 2rem;
+//   margin-bottom: 4rem;
+//   padding: 0 1rem;
+// }
+
+// .card {
+//   background: $dark-card-bg;
+//   border-radius: 15px;
+//   padding: 2rem;
+//   text-align: center;
+//   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+//   transition: all 0.3s ease;
+//   border: 2px solid transparent;
+  
+//   &:hover {
+//     transform: translateY(-10px);
+//     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+//   }
+  
+//   .tip {
+//     font-size: 1.2rem;
+//     font-weight: bold;
+//     margin-bottom: 1rem;
+//     color: $text-light;
+//   }
+  
+//   .second-text {
+//     font-size: 1rem;
+//     color: $text-muted;
+//     font-weight: 500;
+//   }
+  
+//   &.red {
+//     border-color: $accent-color;
+    
+//     &:hover {
+//       border-color: $accent-color;
+//       box-shadow: 0 20px 40px rgba(233, 69, 96, 0.3);
+//     }
+    
+//     .tip {
+//       color: $accent-color;
+//     }
+//   }
+  
+//   &.blue {
+//     border-color: $gold-primary;
+    
+//     &:hover {
+//       border-color: $gold-primary;
+//       box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+//     }
+    
+//     .tip {
+//       color: $gold-primary;
+//     }
+//   }
+  
+//   &.green {
+//     border-color: $gold-khaki;
+    
+//     &:hover {
+//       border-color: $gold-khaki;
+//       box-shadow: 0 20px 40px rgba(219, 199, 108, 0.3);
+//     }
+    
+//     .tip {
+//       color: $gold-khaki;
+//     }
+//   }
+  
+//   &.black {
+//     border-color: $gold-darkened;
+    
+//     &:hover {
+//       border-color: $gold-darkened;
+//       box-shadow: 0 20px 40px rgba(201, 162, 39, 0.3);
+//     }
+    
+//     .tip {
+//       color: $gold-darkened;
+//     }
+//   }
+// }
+
+// // Contact Form Section
+// section {
+//   background: $dark-bg;
+//   padding: 4rem 2rem;
+//   min-height: 100vh;
+// }
+
+// .contact-form {
+//   max-width: 600px;
+//   margin: 0 auto;
+//   background: $dark-card-bg;
+//   padding: 3rem;
+//   border-radius: 20px;
+//   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+//   border: 1px solid rgba(212, 175, 55, 0.2);
+  
+//   h2 {
+//     color: $text-light;
+//     font-size: 2.2rem;
+//     text-align: center;
+//     margin-bottom: 2.5rem;
+//     font-weight: bold;
+    
+//     &::after {
+//       content: '';
+//       display: block;
+//       width: 60px;
+//       height: 3px;
+//       background: linear-gradient(90deg, $gold-primary, $gold-khaki);
+//       margin: 1rem auto 0;
+//       border-radius: 2px;
+//     }
+//   }
+// }
+
+// .form-group {
+//   margin-bottom: 2rem;
+  
+//   label {
+//     display: block;
+//     color: $text-light;
+//     font-weight: 600;
+//     margin-bottom: 0.8rem;
+//     font-size: 1.1rem;
+//   }
+  
+//   input, textarea {
+//     width: 100%;
+//     padding: 1rem 1.2rem;
+//     background: $gray-dark;
+//     border: 2px solid transparent;
+//     border-radius: 10px;
+//     color: $text-light;
+//     font-size: 1rem;
+//     transition: all 0.3s ease;
+//     box-sizing: border-box;
+    
+//     &::placeholder {
+//       color: $text-muted;
+//     }
+    
+//     &:focus {
+//       outline: none;
+//       border-color: $gold-primary;
+//       background: lighten($gray-dark, 5%);
+//       box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+//     }
+    
+//     &:hover {
+//       border-color: rgba(212, 175, 55, 0.4);
+//     }
+//   }
+  
+//   textarea {
+//     min-height: 120px;
+//     resize: vertical;
+//     font-family: inherit;
+//   }
+// }
+
+// .submit-btn {
+//   width: 100%;
+//   padding: 1.2rem;
+//   background: linear-gradient(135deg, $gold-primary, $gold-khaki);
+//   color: $dark-bg;
+//   border: none;
+//   border-radius: 10px;
+//   font-size: 1.1rem;
+//   font-weight: bold;
+//   cursor: pointer;
+//   transition: all 0.3s ease;
+//   text-transform: uppercase;
+//   letter-spacing: 1px;
+  
+//   &:hover {
+//     background: linear-gradient(135deg, $gold-khaki, $gold-darkened);
+//     transform: translateY(-2px);
+//     box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+//   }
+  
+//   &:active {
+//     transform: translateY(0);
+//   }
+// }
+
+// // Response message
+// section > p {
+//   color: $text-muted;
+//   text-align: center;
+//   margin-top: 2rem;
+//   font-size: 1rem;
+//   line-height: 1.6;
+//   max-width: 600px;
+//   margin-left: auto;
+//   margin-right: auto;
+// }
+
+// // Maps Section
+// .maps {
+//   background: $dark-bg;
+//   padding: 4rem 2rem;
+// }
+
+// .container1 {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   text-align: center;
+  
+//   h1 {
+//     color: $text-light;
+//     font-size: 2.5rem;
+//     margin-bottom: 3rem;
+//     font-weight: bold;
+    
+//     &::after {
+//       content: '';
+//       display: block;
+//       width: 80px;
+//       height: 3px;
+//       background: linear-gradient(90deg, $gold-primary, $gold-khaki);
+//       margin: 1.5rem auto 0;
+//       border-radius: 2px;
+//     }
+//   }
+// }
+
+// .map-container1 {
+//   border-radius: 20px;
+//   overflow: hidden;
+//   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+//   border: 3px solid $gold-primary;
+  
+//   iframe {
+//     width: 100%;
+//     height: 450px;
+//     border: none;
+//     filter: grayscale(20%) contrast(1.1);
+    
+//     &:hover {
+//       filter: grayscale(0%) contrast(1.2);
+//       transition: filter 0.3s ease;
+//     }
+//   }
+// }
+
+// // Responsive Design
+// @media (max-width: 768px) {
+//   .text {
+//     font-size: 2rem;
+//   }
+  
+//   .cards {
+//     grid-template-columns: 1fr;
+//     gap: 1.5rem;
+//   }
+  
+//   .contact-form {
+//     padding: 2rem;
+//     margin: 0 1rem;
+//   }
+  
+//   .contact-form h2 {
+//     font-size: 1.8rem;
+//   }
+  
+//   .container1 h1 {
+//     font-size: 2rem;
+//   }
+  
+//   .map-container1 iframe {
+//     height: 300px;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .contact-form {
+//     padding: 1.5rem;
+//   }
+  
+//   .card {
+//     padding: 1.5rem;
+//   }
+  
+//   .form-group input,
+//   .form-group textarea {
+//     padding: 0.8rem 1rem;
+//   }
+// }
+// Enhanced Variables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $dark-bg: #0a0a1a;
+// $dark-card-bg: #1a1a2e;
+// $accent-color: #e94560;
+// $text-light: #ffffff;
+// $text-muted: #b0b0b0;
+// $gray-dark: #2d2d2d; 
+// $gold-khaki: #dbc76c;
+// $gold-darkened: #c9a227;
+// $gold-primary: #d4af37;
+// $gradient-primary: linear-gradient(135deg, $gold-primary 0%, $gold-khaki 50%, $gold-darkened 100%);
+// $glass-effect: rgba(255, 255, 255, 0.1);
+
+// // Enhanced Mixins
+// @mixin glass-morphism($opacity: 0.1) {
+//   background: rgba(255, 255, 255, $opacity);
+//   backdrop-filter: blur(20px);
+//   border: 1px solid rgba(255, 255, 255, 0.2);
+// }
+
+// @mixin hover-lift {
+//   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+//   &:hover {
+//     transform: translateY(-15px) scale(1.02);
+//     filter: brightness(1.1);
+//   }
+// }
+
+// @mixin gradient-text($gradient) {
+//   background: $gradient;
+//   -webkit-background-clip: text;
+//   background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   color: transparent;
+// }
+
+// // Main Container for Perfect Centering
+// .main-container {
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 2rem;
+//   background: 
+//     radial-gradient(ellipse at top, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+//     radial-gradient(ellipse at bottom, rgba(233, 69, 96, 0.08) 0%, transparent 50%),
+//     linear-gradient(135deg, $dark-bg 0%, lighten($dark-bg, 5%) 100%);
+// }
+
+// // Enhanced Contact Header with Perfect Centering
+// .text {
+//   @include gradient-text($gradient-primary);
+//   font-size: clamp(2rem, 5vw, 3.5rem);
+//   font-weight: 800;
+//   text-align: center;
+//   margin-bottom: 4rem;
+//   text-decoration: none;
+//   letter-spacing: 2px;
+//   text-transform: uppercase;
+//   position: relative;
+//   cursor: pointer;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     width: 120%;
+//     height: 120%;
+//     background: $gradient-primary;
+//     border-radius: 50px;
+//     opacity: 0;
+//     z-index: -1;
+//     transition: opacity 0.4s ease;
+//   }
+  
+//   &:hover {
+//     transform: scale(1.05);
+//     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+//     &::before {
+//       opacity: 0.1;
+//     }
+//   }
+  
+//   &::after {
+//     content: '';
+//     display: block;
+//     width: 100px;
+//     height: 4px;
+//     background: $gradient-primary;
+//     margin: 1rem auto;
+//     border-radius: 2px;
+//     animation: pulse 2s infinite;
+//   }
+// }
+
+// @keyframes pulse {
+//   0%, 100% { opacity: 1; }
+//   50% { opacity: 0.6; }
+// }
+
+// // Enhanced Cards Grid
+// .cards {
+//   display: grid;
+//   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+//   gap: 2.5rem;
+//   margin-bottom: 6rem;
+//   padding: 0 2rem;
+//   max-width: 1400px;
+//   width: 100%;
+//   justify-items: center;
+// }
+
+// .card {
+//   @include glass-morphism(0.05);
+//   @include hover-lift;
+//   background: 
+//     linear-gradient(135deg, $dark-card-bg 0%, lighten($dark-card-bg, 5%) 100%);
+//   border-radius: 25px;
+//   padding: 3rem 2rem;
+//   text-align: center;
+//   box-shadow: 
+//     0 20px 60px rgba(0, 0, 0, 0.4),
+//     0 8px 25px rgba(212, 175, 55, 0.1),
+//     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+//   border: 2px solid transparent;
+//   position: relative;
+//   overflow: hidden;
+//   width: 100%;
+//   max-width: 350px;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+//     pointer-events: none;
+//   }
+  
+//   .tip {
+//     font-size: 1.4rem;
+//     font-weight: 700;
+//     margin-bottom: 1.5rem;
+//     color: $text-light;
+//     position: relative;
+//     z-index: 1;
+//     letter-spacing: 1px;
+//   }
+  
+//   .second-text {
+//     font-size: 1.1rem;
+//     color: $text-muted;
+//     font-weight: 500;
+//     line-height: 1.6;
+//     position: relative;
+//     z-index: 1;
+//   }
+  
+//   &.red {
+//     border-color: $accent-color;
+    
+//     &:hover {
+//       border-color: lighten($accent-color, 10%);
+//       box-shadow: 
+//         0 25px 80px rgba(233, 69, 96, 0.3),
+//         0 8px 25px rgba(233, 69, 96, 0.2);
+//     }
+    
+//     .tip {
+//       @include gradient-text(linear-gradient(135deg, $accent-color, lighten($accent-color, 15%)));
+//     }
+//   }
+  
+//   &.blue {
+//     border-color: $gold-primary;
+    
+//     &:hover {
+//       border-color: lighten($gold-primary, 10%);
+//       box-shadow: 
+//         0 25px 80px rgba(212, 175, 55, 0.3),
+//         0 8px 25px rgba(212, 175, 55, 0.2);
+//     }
+    
+//     .tip {
+//       @include gradient-text($gradient-primary);
+//     }
+//   }
+  
+//   &.green {
+//     border-color: $gold-khaki;
+    
+//     &:hover {
+//       border-color: lighten($gold-khaki, 10%);
+//       box-shadow: 
+//         0 25px 80px rgba(219, 199, 108, 0.3),
+//         0 8px 25px rgba(219, 199, 108, 0.2);
+//     }
+    
+//     .tip {
+//       @include gradient-text(linear-gradient(135deg, $gold-khaki, lighten($gold-khaki, 15%)));
+//     }
+//   }
+  
+//   &.black {
+//     border-color: $gold-darkened;
+    
+//     &:hover {
+//       border-color: lighten($gold-darkened, 10%);
+//       box-shadow: 
+//         0 25px 80px rgba(201, 162, 39, 0.3),
+//         0 8px 25px rgba(201, 162, 39, 0.2);
+//     }
+    
+//     .tip {
+//       @include gradient-text(linear-gradient(135deg, $gold-darkened, lighten($gold-darkened, 15%)));
+//     }
+//   }
+// }
+
+// // Enhanced Contact Section with Perfect Centering
+// .contact {
+//   background: 
+//     radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+//     radial-gradient(ellipse at top left, rgba(233, 69, 96, 0.08) 0%, transparent 50%),
+//     radial-gradient(ellipse at bottom right, rgba(219, 199, 108, 0.06) 0%, transparent 50%),
+//     linear-gradient(135deg, $dark-bg 0%, lighten($dark-bg, 8%) 50%, $dark-card-bg 100%);
+//   padding: 6rem 2rem;
+//   position: relative;
+//   overflow: hidden;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: 
+//       url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="stars" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%23d4af37" opacity="0.3"/></pattern></defs><rect width="200" height="200" fill="url(%23stars)"/></svg>');
+//     pointer-events: none;
+//     animation: float 20s ease-in-out infinite;
+//   }
+  
+//   > * {
+//     position: relative;
+//     z-index: 1;
+//   }
+// }
+
+// // Combined Contact & Map Section
+// .contact-map-section {
+//   background: 
+//     radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+//     radial-gradient(ellipse at top left, rgba(233, 69, 96, 0.08) 0%, transparent 50%),
+//     radial-gradient(ellipse at bottom right, rgba(219, 199, 108, 0.06) 0%, transparent 50%),
+//     linear-gradient(135deg, $dark-bg 0%, lighten($dark-bg, 8%) 50%, $dark-card-bg 100%);
+//   padding: 6rem 2rem;
+//   position: relative;
+//   overflow: hidden;
+//   min-height: 100vh;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: 
+//       url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="stars" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%23d4af37" opacity="0.3"/></pattern></defs><rect width="200" height="200" fill="url(%23stars)"/></svg>');
+//     pointer-events: none;
+//     animation: float 20s ease-in-out infinite;
+//   }
+// }
+
+// .contact-map-container {
+//   max-width: 1600px;
+//   margin: 0 auto;
+//   display: grid;
+//   grid-template-columns: 1fr 1fr;
+//   gap: 4rem;
+//   align-items: start;
+//   position: relative;
+//   z-index: 1;
+  
+//   // Section Headers
+//   .section-header {
+//     @include gradient-text($gradient-primary);
+//     font-size: clamp(2rem, 4vw, 2.8rem);
+//     text-align: center;
+//     margin-bottom: 3rem;
+//     font-weight: 800;
+//     letter-spacing: 1px;
+    
+//     &::after {
+//       content: '';
+//       display: block;
+//       width: 80px;
+//       height: 4px;
+//       background: $gradient-primary;
+//       margin: 1.5rem auto 0;
+//       border-radius: 2px;
+//       box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+//     }
+//   }
+// }
+
+// @keyframes float {
+//   0%, 100% { transform: translateY(0px); }
+//   50% { transform: translateY(-10px); }
+// }
+
+// // Enhanced Form Section with Perfect Centering
+// section:not(.contact):not(.maps) {
+//   background: 
+//     radial-gradient(circle at center, rgba(22, 33, 62, 0.9) 0%, transparent 70%),
+//     linear-gradient(45deg, $dark-bg 0%, darken($dark-card-bg, 5%) 100%);
+//   padding: 6rem 2rem;
+//   min-height: 100vh;
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: 
+//       linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 50%, transparent 100%);
+//     pointer-events: none;
+//   }
+// }
+
+// // Enhanced Contact Form for Side-by-Side Layout
+// .contact-form {
+//   width: 100%;
+//   @include glass-morphism(0.08);
+//   background: 
+//     linear-gradient(135deg, rgba(22, 33, 62, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+//   backdrop-filter: blur(30px);
+//   padding: 3rem;
+//   border-radius: 30px;
+//   box-shadow: 
+//     0 25px 80px rgba(0, 0, 0, 0.5),
+//     0 10px 25px rgba(212, 175, 55, 0.15),
+//     inset 0 1px 0 rgba(255, 255, 255, 0.15);
+//   border: 2px solid rgba(212, 175, 55, 0.3);
+//   position: relative;
+//   overflow: hidden;
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: 
+//       radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+//       radial-gradient(circle at 80% 80%, rgba(219, 199, 108, 0.05) 0%, transparent 50%);
+//     pointer-events: none;
+//   }
+  
+//   // Remove individual h2 styling since we use section-header now
+// }
+
+// .form-group {
+//   margin-bottom: 2.5rem;
+//   position: relative;
+//   z-index: 1;
+  
+//   label {
+//     display: block;
+//     color: $text-light;
+//     font-weight: 700;
+//     margin-bottom: 1rem;
+//     font-size: 1.2rem;
+//     letter-spacing: 0.5px;
+//   }
+  
+//   input, textarea {
+//     width: 100%;
+//     padding: 1.5rem 1.5rem;
+//     @include glass-morphism(0.05);
+//     background: 
+//       linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(26, 26, 46, 0.95) 100%);
+//     backdrop-filter: blur(15px);
+//     border: 2px solid transparent;
+//     border-radius: 15px;
+//     color: $text-light;
+//     font-size: 1.1rem;
+//     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+//     box-sizing: border-box;
+    
+//     &::placeholder {
+//       color: $text-muted;
+//       opacity: 0.8;
+//     }
+    
+//     &:focus {
+//       outline: none;
+//       border-color: $gold-primary;
+//       background: 
+//         linear-gradient(135deg, rgba(45, 45, 45, 0.95) 0%, rgba(26, 26, 46, 1) 100%);
+//       box-shadow: 
+//         0 0 0 4px rgba(212, 175, 55, 0.15),
+//         0 8px 25px rgba(212, 175, 55, 0.25),
+//         inset 0 1px 0 rgba(255, 255, 255, 0.1);
+//       transform: translateY(-2px);
+//     }
+    
+//     &:hover {
+//       border-color: rgba(212, 175, 55, 0.5);
+//       transform: translateY(-1px);
+//     }
+//   }
+  
+//   textarea {
+//     min-height: 150px;
+//     resize: vertical;
+//     font-family: inherit;
+//   }
+// }
+
+// .submit-btn {
+//   width: 100%;
+//   padding: 1.8rem;
+//   background: $gradient-primary;
+//   color: $dark-bg;
+//   border: none;
+//   border-radius: 15px;
+//   font-size: 1.3rem;
+//   font-weight: 800;
+//   cursor: pointer;
+//   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+//   text-transform: uppercase;
+//   letter-spacing: 2px;
+//   position: relative;
+//   z-index: 1;
+//   box-shadow: 
+//     0 8px 25px rgba(212, 175, 55, 0.4),
+//     0 4px 15px rgba(212, 175, 55, 0.2),
+//     inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  
+//   &:hover {
+//     background: 
+//       linear-gradient(135deg, $gold-khaki 0%, $gold-primary 50%, $gold-darkened 100%);
+//     transform: translateY(-5px) scale(1.02);
+//     box-shadow: 
+//       0 15px 40px rgba(212, 175, 55, 0.5),
+//       0 8px 25px rgba(212, 175, 55, 0.3),
+//       inset 0 1px 0 rgba(255, 255, 255, 0.4);
+//   }
+  
+//   &:active {
+//     transform: translateY(-2px) scale(1.01);
+//   }
+// }
+
+// // Enhanced Response Message
+// section > p {
+//   color: $text-muted;
+//   text-align: center;
+//   margin-top: 3rem;
+//   font-size: 1.1rem;
+//   line-height: 1.8;
+//   max-width: 700px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   position: relative;
+//   z-index: 1;
+// }
+
+// // Enhanced Maps Section for Side-by-Side Layout
+// .maps {
+//   width: 100%;
+//   position: relative;
+  
+//   .map-container1 {
+//     border-radius: 30px;
+//     overflow: hidden;
+//     box-shadow: 
+//       0 25px 80px rgba(0, 0, 0, 0.5),
+//       0 10px 25px rgba(212, 175, 55, 0.2);
+//     border: 3px solid $gold-primary;
+//     position: relative;
+    
+//     &::before {
+//       content: '';
+//       position: absolute;
+//       top: -3px;
+//       left: -3px;
+//       right: -3px;
+//       bottom: -3px;
+//       background: $gradient-primary;
+//       border-radius: 33px;
+//       z-index: -1;
+//     }
+    
+//     iframe {
+//       width: 100%;
+//       height: 600px;
+//       border: none;
+//       filter: grayscale(30%) contrast(1.1) brightness(0.9);
+//       transition: all 0.4s ease;
+      
+//       &:hover {
+//         filter: grayscale(0%) contrast(1.3) brightness(1.1);
+//       }
+//     }
+//   }
+// }
+
+// // Remove the old separate maps section
+// .maps:not(.contact-map-container .maps) {
+//   display: none;
+// }
+
+// // Enhanced Responsive Design
+// @media (max-width: 1024px) {
+//   .main-container {
+//     padding: 1rem;
+//   }
+  
+//   .cards {
+//     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+//     gap: 2rem;
+//   }
+  
+//   // Switch to stacked layout on tablets
+//   .contact-map-container {
+//     grid-template-columns: 1fr;
+//     gap: 3rem;
+    
+//     .maps .map-container1 iframe {
+//       height: 400px;
+//     }
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .text {
+//     font-size: clamp(1.8rem, 6vw, 2.5rem);
+//     margin-bottom: 3rem;
+//   }
+  
+//   .cards {
+//     grid-template-columns: 1fr;
+//     gap: 2rem;
+//     padding: 0 1rem;
+//   }
+  
+//   .contact-map-container {
+//     grid-template-columns: 1fr;
+//     gap: 2rem;
+//     padding: 0 1rem;
+    
+//     .section-header {
+//       font-size: clamp(1.5rem, 5vw, 2rem);
+//       margin-bottom: 2rem;
+//     }
+//   }
+  
+//   .contact-form {
+//     padding: 2.5rem;
+//     border-radius: 25px;
+//   }
+  
+//   .maps .map-container1 iframe {
+//     height: 350px;
+//   }
+  
+//   .contact, .contact-map-section, section:not(.contact):not(.maps) {
+//     padding: 4rem 1rem;
+//   }
+// }
+
+// @media (max-width: 480px) {
+//   .contact-form {
+//     padding: 2rem;
+//     margin: 0 0.5rem;
+//   }
+  
+//   .card {
+//     padding: 2rem 1.5rem;
+//   }
+  
+//   .form-group {
+//     margin-bottom: 2rem;
+//   }
+  
+//   .form-group input,
+//   .form-group textarea {
+//     padding: 1.2rem 1rem;
+//     font-size: 1rem;
+//   }
+  
+//   .submit-btn {
+//     padding: 1.5rem;
+//     font-size: 1.1rem;
+//   }
+  
+//   .maps .map-container1 iframe {
+//     height: 280px;
+//   }
+  
+//   .contact-map-container {
+//     gap: 1.5rem;
+//   }
+// }
+
+// // Animation for smooth loading
+// @keyframes fadeInUp {
+//   from {
+//     opacity: 0;
+//     transform: translateY(30px);
+//   }
+//   to {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// .card, .contact-form, .maps .map-container1 {
+//   animation: fadeInUp 0.6s ease-out;
+// }
+
+// // Staggered animation for cards
+// .card:nth-child(1) { animation-delay: 0.1s; }
+// .card:nth-child(2) { animation-delay: 0.2s; }
+// .card:nth-child(3) { animation-delay: 0.3s; }
+// .card:nth-child(4) { animation-delay: 0.4s; }
+
+// // Animation for contact and map sections
+// .contact-form { animation-delay: 0.2s; }
+// .maps .map-container1 { animation-delay: 0.4s; }
+
+
+// Enhanced Variables
+$dark-bg: #0a0a1a;
+$dark-card-bg: #1a1a2e;
 $accent-color: #e94560;
-$text-light: #f4f4f4;
-$text-muted: #a0a0a0;
+$text-light: #ffffff;
+$text-muted: #b0b0b0;
 $gray-dark: #2d2d2d; 
-$gold-khaki: #dbc76c; // Darker khaki gold
-$gold-darkened: #c9a227; // Slightly darker gold
-$gold-primary: #d4af37; // Rich gold
+$gold-khaki: #dbc76c;
+$gold-darkened: #c9a227;
+$gold-primary: #d4af37;
+$error-color: #ff4757;
+$success-color: #2ed573;
+$gradient-primary: linear-gradient(135deg, $gold-primary 0%, $gold-khaki 50%, $gold-darkened 100%);
+$glass-effect: rgba(255, 255, 255, 0.1);
 
-
-section {
-
-    height: 90vh;
-
-    p{
-        color: $gold-darkened;
-        text-shadow: 6px 9px 1px  #16213e;
-        font-size: 1.4rem;
-        line-height: 1.5;
-        margin-bottom: 2rem;
-        max-width: 480px;
-        width: 100%;
-        margin: 70px auto;
-    }
-.contact-form {
-    max-width: 95%; // Increased width
-    width: 800px; // Fixed width with more flexibility
-    margin: 2rem auto;
-    padding: 2rem;
-    background: rgba($gray-dark, 0.5);
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px); // Glass morphism effect
-
-
-    h2 {
-        color: $text-light;
-        text-align: center;
-        margin-bottom: 1.5rem;
-        font-weight: 300;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-
-        label {
-            display: block;
-            color: $text-muted;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        input, 
-        textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: rgba($dark-bg, 0.7);
-            border: none !important;
-            border-radius: 5px;
-            color: $text-light;
-            transition: all 0.3s ease;
-
-            &:focus {
-                outline: none;
-                border-color: $gold-khaki;
-                box-shadow: 0 0 10px rgba($gold-khaki, 0.5);
-            }
-
-            &::placeholder {
-                color: $text-muted;
-            }
-        }
-
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-    }
-
-    .submit-btn {
-        width: 100%;
-        padding: 1rem;
-        background-color: $gold-darkened;
-        color: $text-light;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s ease;
-
-        &:hover {
-            background-color: darken($gold-primary, 10%);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        &:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-    }
+// Enhanced Mixins
+@mixin glass-morphism($opacity: 0.1) {
+  background: rgba(255, 255, 255, $opacity);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-// Responsive adjustments
-@media screen and (max-width: 600px) {
-    .contact-form {
-        width: 95%;
-        padding: 1.5rem;
-    }
+@mixin hover-lift {
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &:hover {
+    transform: translateY(-15px) scale(1.02);
+    filter: brightness(1.1);
+  }
 }
 
-// Particles container
-.particles-container {
-    position: fixed;
+@mixin gradient-text($gradient) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+// Host styling
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+}
+
+// Enhanced Contact Header with Perfect Centering
+.text {
+  @include gradient-text($gradient-primary);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 4rem;
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: $gradient-primary;
+    border-radius: 50px;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.4s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.05);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    &::before {
+      opacity: 0.1;
+    }
+  }
+  
+  &::after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: $gradient-primary;
+    margin: 1rem auto;
+    border-radius: 2px;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+// Contact Section
+.contact {
+  background: 
+    radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at top left, rgba(233, 69, 96, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(219, 199, 108, 0.06) 0%, transparent 50%),
+    linear-gradient(135deg, $dark-bg 0%, lighten($dark-bg, 8%) 50%, $dark-card-bg 100%);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  
+  &::before {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
+    background: 
+      url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="stars" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="0.5" fill="%23d4af37" opacity="0.3"/></pattern></defs><rect width="200" height="200" fill="url(%23stars)"/></svg>');
     pointer-events: none;
-    z-index: -1;
+    animation: float 20s ease-in-out infinite;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+// Contact Map Container
+.contact-map-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+// Enhanced Cards Grid
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.card {
+  @include glass-morphism(0.05);
+  @include hover-lift;
+  background: 
+    linear-gradient(135deg, $dark-card-bg 0%, lighten($dark-card-bg, 5%) 100%);
+  border-radius: 25px;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 8px 25px rgba(212, 175, 55, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 280px;
+  animation: fadeInUp 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(30px);
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  
+  .tip {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: $text-light;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 1px;
+  }
+  
+  .second-text {
+    font-size: 1rem;
+    color: $text-muted;
+    font-weight: 500;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  
+  &.red {
+    border-color: $accent-color;
+    
+    &:hover {
+      border-color: lighten($accent-color, 10%);
+      box-shadow: 
+        0 25px 80px rgba(233, 69, 96, 0.3),
+        0 8px 25px rgba(233, 69, 96, 0.2);
+    }
+    
+    .tip {
+      @include gradient-text(linear-gradient(135deg, $accent-color, lighten($accent-color, 15%)));
+    }
+  }
+  
+  &.blue {
+    border-color: $gold-primary;
+    
+    &:hover {
+      border-color: lighten($gold-primary, 10%);
+      box-shadow: 
+        0 25px 80px rgba(212, 175, 55, 0.3),
+        0 8px 25px rgba(212, 175, 55, 0.2);
+    }
+    
+    .tip {
+      @include gradient-text($gradient-primary);
+    }
+  }
+  
+  &.green {
+    border-color: $gold-khaki;
+    
+    &:hover {
+      border-color: lighten($gold-khaki, 10%);
+      box-shadow: 
+        0 25px 80px rgba(219, 199, 108, 0.3),
+        0 8px 25px rgba(219, 199, 108, 0.2);
+    }
+    
+    .tip {
+      @include gradient-text(linear-gradient(135deg, $gold-khaki, lighten($gold-khaki, 15%)));
+    }
+  }
+  
+  &.black {
+    border-color: $gold-darkened;
+    
+    &:hover {
+      border-color: lighten($gold-darkened, 10%);
+      box-shadow: 
+        0 25px 80px rgba(201, 162, 39, 0.3),
+        0 8px 25px rgba(201, 162, 39, 0.2);
+    }
+    
+    .tip {
+      @include gradient-text(linear-gradient(135deg, $gold-darkened, lighten($gold-darkened, 15%)));
+    }
+  }
+}
+
+// Enhanced Contact Form
+.contact-form {
+  width: 100%;
+  @include glass-morphism(0.08);
+  background: 
+    linear-gradient(135deg, rgba(22, 33, 62, 0.95) 0%, rgba(45, 45, 45, 0.9) 100%);
+  backdrop-filter: blur(30px);
+  padding: 3rem;
+  border-radius: 30px;
+  box-shadow: 
+    0 25px 80px rgba(0, 0, 0, 0.5),
+    0 10px 25px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.2s;
+  opacity: 0;
+  transform: translateY(30px);
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(219, 199, 108, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  h2 {
+    @include gradient-text($gradient-primary);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.form-group {
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 1;
+  
+  label {
+    display: block;
+    color: $text-light;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 1.5rem;
+    @include glass-morphism(0.05);
+    background: 
+      linear-gradient(135deg, rgba(45, 45, 45, 0.9) 0%, rgba(26, 26, 46, 0.95) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    color: $text-light;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-sizing: border-box;
+    font-family: inherit;
+    
+    &::placeholder {
+      color: $text-muted;
+      opacity: 0.8;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: $gold-primary;
+      background: 
+        linear-gradient(135deg, rgba(45, 45, 45, 0.95) 0%, rgba(26, 26, 46, 1) 100%);
+      box-shadow: 
+        0 0 0 4px rgba(212, 175, 55, 0.15),
+        0 8px 25px rgba(212, 175, 55, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    &:hover:not(:focus) {
+      border-color: rgba(212, 175, 55, 0.5);
+      transform: translateY(-1px);
+    }
+    
+    &.error {
+      border-color: $error-color;
+      box-shadow: 
+        0 0 0 4px rgba($error-color, 0.15),
+        0 8px 25px rgba($error-color, 0.25);
+    }
+  }
+  
+  textarea {
+    min-height: 150px;
+    resize: vertical;
+  }
+  
+  .error-message {
+    color: $error-color;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    
+    &:not(:empty) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1.8rem;
+  background: $gradient-primary;
+  color: $dark-bg;
+  border: none;
+  border-radius: 15px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 
+    0 8px 25px rgba(212, 175, 55, 0.4),
+    0 4px 15px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  
+  &:hover:not(:disabled) {
+    background: 
+      linear-gradient(135deg, $gold-khaki 0%, $gold-primary 50%, $gold-darkened 100%);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 
+      0 15px 40px rgba(212, 175, 55, 0.5),
+      0 8px 25px rgba(212, 175, 55, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(-2px) scale(1.01);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .loading {
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+// Enhanced Response Message
+.response-message {
+  color: $text-muted;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+  transition: all 0.4s ease;
+  
+  &.success {
+    color: $success-color;
+    font-weight: 600;
+    transform: scale(1.02);
+  }
+}
+
+// Map Section
+.map-section {
+  h1 {
+    @include gradient-text($gradient-primary);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: $gradient-primary;
+      margin: 1.5rem auto 0;
+      border-radius: 2px;
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    }
+  }
+}
+
+.map-container1 {
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 80px rgba(0, 0, 0, 0.5),
+    0 10px 25px rgba(212, 175, 55, 0.2);
+  border: 3px solid $gold-primary;
+  position: relative;
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.4s;
+  opacity: 0;
+  transform: translateY(30px);
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    background: $gradient-primary;
+    border-radius: 33px;
+    z-index: -1;
+  }
+  
 }
