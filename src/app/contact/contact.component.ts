@@ -9,6 +9,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ContactComponent {
 
+  trackByCardType(index: number, card: { type: string }): string {
+  return card.type;
+}
     contactForm: FormGroup;
   isSubmitting = false;
   showSuccessMessage = false;
@@ -24,7 +27,6 @@ export class ContactComponent {
   }
 
   ngOnInit(): void {
-    // Initialize intersection observer for animations
     this.initializeAnimations();
   }
 
@@ -38,19 +40,16 @@ export class ContactComponent {
     if (this.contactForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
       
-      // Simulate form submission
       setTimeout(() => {
         this.showSuccessMessage = true;
         this.isSubmitting = false;
         this.contactForm.reset();
         
-        // Hide success message after 5 seconds
         this.successTimeout = setTimeout(() => {
           this.showSuccessMessage = false;
         }, 5000);
       }, 1000);
     } else {
-      // Mark all fields as touched to show validation errors
       this.markFormGroupTouched();
     }
   }
@@ -85,7 +84,6 @@ export class ContactComponent {
   }
 
   private initializeAnimations(): void {
-    // Initialize intersection observer for scroll animations
     if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
       const observerOptions = {
         threshold: 0.1,
@@ -100,7 +98,6 @@ export class ContactComponent {
         });
       }, observerOptions);
 
-      // Observe elements after view init
       setTimeout(() => {
         const elements = document.querySelectorAll('.card, .contact-form, .map-container1');
         elements.forEach(el => observer.observe(el));
@@ -108,7 +105,6 @@ export class ContactComponent {
     }
   }
 
-  // Contact information data
   contactCards = [
     {
       type: 'red',
@@ -132,6 +128,5 @@ export class ContactComponent {
     }
   ];
 
-  // Map configuration
   mapUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3791.4451372253293!2d44.894502!3d41.6691668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d23fa041859%3A0xf2ef2beb03bae82e!2sMeskhi-2000!5e1!3m2!1sen!2sge!4v1711039514647!5m2!1sen!2sge';
 }
