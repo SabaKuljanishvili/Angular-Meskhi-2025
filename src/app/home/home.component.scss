@@ -587,3 +587,25 @@ a {
     transition: none !important;
   }
 }
+
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 24px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+}
