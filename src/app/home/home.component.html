@@ -74,43 +74,19 @@
     </div>
   </section>
 
-<!-- <swiper-container loop="true" pagination="true" navigation="true" class="mySwiper">
-  <swiper-slide>
-    <img src="cirkuli/369421033_989795648754152_5942018697328113652_n.jpg" alt="Slider Image 1">
-  </swiper-slide>
-  <swiper-slide>
-    <img src="cirkuli/397943109_3648447392099634_2870897858034374988_n.jpg" alt="Slider Image 2">
-  </swiper-slide>
-  <swiper-slide>
-    <img src="cirkuli/399925681_236709735906756_9167162424002679429_n.jpg" alt="Slider Image 3">
-  </swiper-slide>
-  <swiper-slide>
-    <img src="cirkuli/399945711_3451246038354560_3658791609130255930_n.jpg" alt="Slider Image 4">
-  </swiper-slide>
-    <swiper-slide>
-    <img src="cirkuli/400693450_653873343617285_8109933589587951763_n.jpg" alt="Slider Image 2">
-  </swiper-slide>
-  <swiper-slide>
-    <img src="cirkuli/cirkul.jpg" alt="Slider Image 3">
-  </swiper-slide>
-
-</swiper-container> -->
+  <div class="scroll-container">
+  <div class="scroll-wrapper" [ngStyle]="{ transform: 'translateX(' + translateX + 'px)' }">
+    <div
+      *ngFor="let item of duplicatedItems"
+      class="scroll-item"
+      [ngStyle]="item.style"
+      [innerHTML]="item.text">
+    </div>
+  </div>
+</div>
 
 
 
-
-
-
-<swiper
-  [config]="config"
-  (mouseenter)="swiperRef?.autoplay?.stop()"
-  (mouseleave)="swiperRef?.autoplay?.start()"
-  #swiperRef="swiper"
->
-  <ng-template swiperSlide *ngFor="let slide of slides">
-    {{ slide }}
-  </ng-template>
-</swiper>
 
 
 
