@@ -1,0 +1,13 @@
+<div class="scroll-container-vertical">
+  <div
+    class="scroll-wrapper-vertical"
+    [ngStyle]="{ transform: 'translateY(' + translateY + 'px)' }"
+  >
+    <div
+      *ngFor="let item of duplicatedItems"
+      class="scroll-item-vertical"
+      [ngStyle]="item.style"
+      [innerHTML]="item.text"
+    ></div>
+  </div>
+</div>
