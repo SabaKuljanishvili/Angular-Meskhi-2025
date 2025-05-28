@@ -9,7 +9,7 @@ register();
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HorizontalSliderComponent, VerticalSliderComponent],
+  imports: [CommonModule, HorizontalSliderComponent, ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   encapsulation: ViewEncapsulation.None,
