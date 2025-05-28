@@ -1,18 +1,10 @@
-<!-- 
-  <div class="scroll-container">
-  <div class="scroll-wrapper" [ngStyle]="{ transform: 'translateX(' + translateX + 'px)' }">
-    <div
-      *ngFor="let item of duplicatedItems"
-      class="scroll-item"
-      [ngStyle]="item.style"
-      [innerHTML]="item.text">
-    </div>
-  </div>
-</div> -->
-
-<div class="scroll-container">
+<div 
+  class="scroll-container" 
+  (mouseenter)="onMouseEnter()" 
+  (mouseleave)="onMouseLeave()"
+>
   <div #scrollWrapper class="scroll-wrapper" [ngStyle]="{ transform: 'translateX(' + translateX + 'px)' }">
-    <div *ngFor="let item of duplicatedItems; let i = index" class="scroll-item" [ngStyle]="item.style">
+    <div *ngFor="let item of duplicatedItems; let i = index" class="scroll-item">
       <img [src]="item.image" [alt]="'Slider Image ' + (i + 1)" class="slider-image">
     </div>
   </div>
