@@ -103,123 +103,53 @@ $border-color: rgba(255, 255, 255, 0.1);
 @keyframes shadowGlow {
     0% {
         text-shadow: 
-            0 0 5px rgba(207, 193, 159, 0.2),
-            0 0 10px rgba(175, 165, 135, 0.1),
-            0 1px 0 #6a5a3c,
-            0 3px 0 #4c3d2a,
-            0 5px 8px rgba(0, 0, 0, 0.3);
-        filter: drop-shadow(0 0 8px rgba(175, 165, 135, 0.2));
+            0 0 8px rgba(255, 215, 0, 0.3),     /* ღია ოქრო */
+            0 0 12px rgba(218, 165, 32, 0.2),   /* ოქროსფერი */
+            0 1px 0 #b8860b,                   /* ღრმა ოქრო */
+            0 3px 0 #8b7500,                   /* მუქი ჩრდილი */
+            0 5px 10px rgba(0, 0, 0, 0.35);
+        filter: drop-shadow(0 0 10px rgba(255, 223, 70, 0.3));
     }
     25% {
         text-shadow: 
-            0 0 10px rgba(207, 193, 159, 0.3),
-            0 0 20px rgba(175, 165, 135, 0.2),
-            0 1px 0 #6a5a3c,
-            0 3px 0 #4c3d2a,
-            0 5px 8px rgba(0, 0, 0, 0.3),
-            0 10px 12px rgba(207, 193, 159, 0.1);
-        filter: drop-shadow(0 0 15px rgba(175, 165, 135, 0.3));
+            0 0 15px rgba(255, 215, 0, 0.5),
+            0 0 25px rgba(218, 165, 32, 0.35),
+            0 1px 0 #b8860b,
+            0 3px 0 #8b7500,
+            0 5px 10px rgba(0, 0, 0, 0.35),
+            0 10px 14px rgba(255, 215, 0, 0.2);
+        filter: drop-shadow(0 0 20px rgba(255, 223, 70, 0.4));
     }
     50% {
         text-shadow: 
-            0 0 15px rgba(207, 193, 159, 0.4),
-            0 0 25px rgba(175, 165, 135, 0.3),
-            0 1px 0 #6a5a3c,
-            0 3px 0 #4c3d2a,
-            0 5px 8px rgba(0, 0, 0, 0.3),
-            0 12px 18px rgba(207, 193, 159, 0.15);
-        filter: drop-shadow(0 0 20px rgba(175, 165, 135, 0.4));
+            0 0 20px rgba(255, 215, 0, 0.6),
+            0 0 35px rgba(218, 165, 32, 0.45),
+            0 1px 0 #b8860b,
+            0 3px 0 #8b7500,
+            0 5px 10px rgba(0, 0, 0, 0.35),
+            0 14px 20px rgba(255, 215, 0, 0.3);
+        filter: drop-shadow(0 0 28px rgba(255, 223, 70, 0.5));
     }
     75% {
         text-shadow: 
-            0 0 10px rgba(207, 193, 159, 0.3),
-            0 0 20px rgba(175, 165, 135, 0.2),
-            0 1px 0 #6a5a3c,
-            0 3px 0 #4c3d2a,
-            0 5px 8px rgba(0, 0, 0, 0.3),
-            0 10px 12px rgba(207, 193, 159, 0.1);
-        filter: drop-shadow(0 0 15px rgba(175, 165, 135, 0.3));
+            0 0 15px rgba(255, 215, 0, 0.5),
+            0 0 25px rgba(218, 165, 32, 0.35),
+            0 1px 0 #b8860b,
+            0 3px 0 #8b7500,
+            0 5px 10px rgba(0, 0, 0, 0.35),
+            0 10px 14px rgba(255, 215, 0, 0.2);
+        filter: drop-shadow(0 0 20px rgba(255, 223, 70, 0.4));
     }
     100% {
         text-shadow: 
-            0 0 5px rgba(207, 193, 159, 0.2),
-            0 0 10px rgba(175, 165, 135, 0.1),
-            0 1px 0 #6a5a3c,
-            0 3px 0 #4c3d2a,
-            0 5px 8px rgba(0, 0, 0, 0.3);
-        filter: drop-shadow(0 0 8px rgba(175, 165, 135, 0.2));
+            0 0 8px rgba(255, 215, 0, 0.3),
+            0 0 12px rgba(218, 165, 32, 0.2),
+            0 1px 0 #b8860b,
+            0 3px 0 #8b7500,
+            0 5px 10px rgba(0, 0, 0, 0.35);
+        filter: drop-shadow(0 0 10px rgba(255, 223, 70, 0.3));
     }
 }
-
-//  @keyframes shadowGlow {
-//             0% {
-//                 text-shadow: 
-//                     0 0 10px rgba(207, 193, 159, 0.3),
-//                     0 0 20px rgba(207, 193, 159, 0.2),
-//                     0 0 30px rgba(175, 165, 135, 0.1),
-//                     0 2px 0 #534f2c,
-//                     0 4px 0 #3a2c1f,
-//                     0 6px 0 #2a1f15,
-//                     0 8px 0 #1a130d,
-//                     0 10px 10px rgba(0, 0, 0, 0.4);
-//                 filter: drop-shadow(0 0 15px rgba(207, 193, 159, 0.2));
-//             }
-//             25% {
-//                 text-shadow: 
-//                     0 0 20px rgba(207, 193, 159, 0.6),
-//                     0 0 40px rgba(207, 193, 159, 0.4),
-//                     0 0 60px rgba(175, 165, 135, 0.3),
-//                     0 0 80px rgba(149, 120, 93, 0.2),
-//                     0 2px 0 #534f2c,
-//                     0 4px 0 #3a2c1f,
-//                     0 6px 0 #2a1f15,
-//                     0 8px 0 #1a130d,
-//                     0 10px 10px rgba(0, 0, 0, 0.4),
-//                     0 15px 20px rgba(207, 193, 159, 0.1);
-//                 filter: drop-shadow(0 0 30px rgba(207, 193, 159, 0.4));
-//             }
-//             50% {
-//                 text-shadow: 
-//                     0 0 30px rgba(207, 193, 159, 0.8),
-//                     0 0 60px rgba(207, 193, 159, 0.6),
-//                     0 0 90px rgba(175, 165, 135, 0.4),
-//                     0 0 120px rgba(149, 120, 93, 0.3),
-//                     0 0 150px rgba(104, 81, 59, 0.2),
-//                     0 2px 0 #534f2c,
-//                     0 4px 0 #3a2c1f,
-//                     0 6px 0 #2a1f15,
-//                     0 8px 0 #1a130d,
-//                     0 10px 10px rgba(0, 0, 0, 0.4),
-//                     0 20px 30px rgba(207, 193, 159, 0.2);
-//                 filter: drop-shadow(0 0 50px rgba(207, 193, 159, 0.6));
-//             }
-//             75% {
-//                 text-shadow: 
-//                     0 0 20px rgba(207, 193, 159, 0.6),
-//                     0 0 40px rgba(207, 193, 159, 0.4),
-//                     0 0 60px rgba(175, 165, 135, 0.3),
-//                     0 0 80px rgba(149, 120, 93, 0.2),
-//                     0 2px 0 #534f2c,
-//                     0 4px 0 #3a2c1f,
-//                     0 6px 0 #2a1f15,
-//                     0 8px 0 #1a130d,
-//                     0 10px 10px rgba(0, 0, 0, 0.4),
-//                     0 15px 20px rgba(207, 193, 159, 0.1);
-//                 filter: drop-shadow(0 0 30px rgba(207, 193, 159, 0.4));
-//             }
-//             100% {
-//                 text-shadow: 
-//                     0 0 10px rgba(207, 193, 159, 0.3),
-//                     0 0 20px rgba(207, 193, 159, 0.2),
-//                     0 0 30px rgba(175, 165, 135, 0.1),
-//                     0 2px 0 #534f2c,
-//                     0 4px 0 #3a2c1f,
-//                     0 6px 0 #2a1f15,
-//                     0 8px 0 #1a130d,
-//                     0 10px 10px rgba(0, 0, 0, 0.4);
-//                 filter: drop-shadow(0 0 15px rgba(207, 193, 159, 0.2));
-//             }
-//         }
 
 @keyframes shadow {
   0% {
