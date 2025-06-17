@@ -16,5 +16,21 @@ register();
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomeComponent {
-  
+    firstSwiperImages = [
+    'https://picsum.photos/id/1001/600/400',
+    'https://picsum.photos/id/1002/600/400',
+    'https://picsum.photos/id/1003/600/400'
+  ];
+
+  secondSwiperImages = [
+    'https://picsum.photos/id/1011/600/400',
+    'https://picsum.photos/id/1012/600/400',
+    'https://picsum.photos/id/1013/600/400'
+  ];
+
+  thirdSwiperImages = [
+    'https://picsum.photos/id/1021/600/400',
+    'https://picsum.photos/id/1022/600/400',
+    'https://picsum.photos/id/1023/600/400'
+  ];
 }
