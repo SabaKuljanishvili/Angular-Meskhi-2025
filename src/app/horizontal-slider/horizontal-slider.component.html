@@ -1,4 +1,4 @@
-<div 
+<!-- <div 
   class="scroll-container" 
   (mouseenter)="onMouseEnter()" 
   (mouseleave)="onMouseLeave()"
@@ -7,5 +7,25 @@
     <div *ngFor="let item of duplicatedItems; let i = index" class="scroll-item">
       <img [src]="item.image" [alt]="'Slider Image ' + (i + 1)" class="slider-image">
     </div>
+  </div>
+</div> -->
+
+
+<div class="swiper">
+  <div class="slides" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+    <div class="slide" *ngFor="let img of images">
+      <img [src]="img" alt="slide" />
+    </div>
+  </div>
+
+  <button class="nav prev" (click)="prevSlide()">‹</button>
+  <button class="nav next" (click)="nextSlide()">›</button>
+
+  <div class="pagination">
+    <span
+      *ngFor="let img of images; let i = index"
+      [class.active]="i === currentIndex"
+      (click)="goToSlide(i)"
+    ></span>
   </div>
 </div>

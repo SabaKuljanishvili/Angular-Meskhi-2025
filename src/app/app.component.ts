@@ -5,7 +5,7 @@ import { HomeComponent } from "./home/home.component";
 import { FooterComponent } from "./footer/footer.component";
 import { routes } from './app.routes';
 import { ContactComponent } from "./contact/contact.component";
-import { VantaBackgroundComponent } from "./vanta-background/vanta-background.component";
+
 
 @Component({
   selector: 'app-root',
