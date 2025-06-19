@@ -1,79 +1,86 @@
-// .scroll-container {
-//   width: 100%;
-//   height: 320px;
-//   overflow: visible; // საჭიროა, რომ hover-ის დროს გამოსულ ფოტოებს არ მოჭრას
+// .swiper {
+//   width: 600px;
+//   height: 400px;
+//   margin: 0 auto;
 //   position: relative;
-//   margin: 50px 0;
-// }
-
-// .scroll-wrapper {
-//   display: flex;
-//   height: 100%;
-//   will-change: transform;
-//   align-items: center;
-//   position: relative;
-// }
-
-// .scroll-item {
-//   width: 200px;
-//   height: 250px;
-//   margin: 0 10px;
+//   overflow: hidden;
 //   border-radius: 15px;
-//   transition: all 0.3s ease;
-//   flex-shrink: 0;
-//   position: relative;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   z-index: 1;
+//   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 
-//   .slider-image {
-//     width: 100%;
-    
+//   .slides {
+//     display: flex;
+//     transition: transform 0.5s ease-in-out;
 //     height: 100%;
-//     object-fit: cover;
-//     border-radius: 15px;
-//     transition: transform 0.3s ease;
+    
 //   }
 
-//   &:hover {
-//     z-index: 20;
-//     transform: translateY(-60px) scale(1.2);
-//     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+//   .slide {
+//     min-width: 100%;
+//     height: 100%;
 
-//     .slider-image {
-//       transform: none; // ფოტოს აღარ ვზრდით დამოუკიდებლად
+//     img {
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
 //     }
 //   }
-// }
 
-// /* რესპონსიული დიზაინი */
-// @media (max-width: 768px) {
-//   .scroll-container {
-//     height: 250px;
+//   .nav {
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     background: rgba(0, 0, 0, 0.4);
+//     border: none;
+//     color: white;
+//     font-size: 20px;
+//     padding: 10px 15px;
+//     cursor: pointer;
+//     z-index: 10;
+//     transition: background 0.3s ease;
+//     border-radius: 20px;
+
+//     &:hover {
+//       background: rgba(0, 0, 0, 0.7);
+//     }
+
+//     &.prev {
+//       left: 10px;
+//     }
+
+//     &.next {
+//       right: 10px;
+//     }
 //   }
 
-//   .scroll-item {
-//     width: 160px;
-//     height: 200px;
-//   }
-// }
+//   .pagination {
+//     position: absolute;
+//     bottom: 15px;
+//     left: 50%;
+//     transform: translateX(-50%);
 
-// @media (max-width: 480px) {
-//   .scroll-container {
-//     height: 200px;
-//   }
+//     span {
+//       display: inline-block;
+//       width: 10px;
+//       height: 10px;
+//       background: #fff;
+//       opacity: 0.5;
+//       border-radius: 50%;
+//       margin: 0 5px;
+//       cursor: pointer;
+//       transition: opacity 0.3s ease;
 
-//   .scroll-item {
-//     width: 140px;
-//     height: 180px;
-//     margin: 0 8px;
+//       &.active {
+//         opacity: 1;
+//         background: #007aff;
+//       }
+//     }
 //   }
 // }
 
 
 .swiper {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   height: 400px;
   margin: 0 auto;
   position: relative;
@@ -105,11 +112,12 @@
     background: rgba(0, 0, 0, 0.4);
     border: none;
     color: white;
-    font-size: 30px;
+    font-size: 20px;
     padding: 10px 15px;
     cursor: pointer;
     z-index: 10;
     transition: background 0.3s ease;
+    border-radius: 20px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.7);
@@ -145,6 +153,32 @@
         opacity: 1;
         background: #007aff;
       }
+    }
+  }
+
+  // ✅ მობილური ეკრანისთვის ადაპტაცია
+  @media (max-width: 768px) {
+    height: 250px;
+
+    .nav {
+      font-size: 16px;
+      padding: 8px 12px;
+    }
+
+    .pagination span {
+      width: 8px;
+      height: 8px;
+      margin: 0 3px;
+    }
+  }
+
+  // ✅ პატარა ტელეფონებისთვის (iPhone SE, Mini)
+  @media (max-width: 480px) {
+    height: 200px;
+
+    .nav {
+      font-size: 14px;
+      padding: 6px 10px;
     }
   }
 }

@@ -659,14 +659,14 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; // რომ ვიწრო ეკრანზე გადანაწილდეს ვერტიკალურად
+  flex-wrap: wrap; 
   gap: 30px;
   padding: 40px 20px;
 
   app-horizontal-slider {
     width: 600px;
     height: 400px;
-    flex-shrink: 0; // არ დაეკეცოს
+    flex-shrink: 0; 
   }
 
   .text-block {
@@ -674,62 +674,15 @@ a {
     font-size: 16px;
     line-height: 1.6;
     color: #333;
-    background: #f9f9f9;
     padding: 20px;
-    border-left: 5px solid #007aff;
+    border-left: 5px solid $gold-dark;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     flex-shrink: 0;
   }
   p {
     margin-bottom: 1.5rem;
-    color: black;
-  }
-}
-
-.slider2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; // რომ ვიწრო ეკრანზე გადანაწილდეს ვერტიკალურად
-  gap: 30px;
-  padding: 40px 20px;
-
-  app-horizontal-slider {
-    width: 600px;
-    height: 400px;
-    flex-shrink: 0; // არ დაეკეცოს
-  }
-
-  .text-block {
-    max-width: 400px;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
-    background: #f9f9f9;
-    padding: 20px;
-    border-left: 5px solid #007aff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    flex-shrink: 0;
-  }
-  p {
-    margin-bottom: 1.5rem;
-    color: black;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .slider {
-    flex-direction: column;
-    align-items: center;
-
-    app-horizontal-slider,
-    .text-block {
-      width: 100%;
-      max-width: 90%;
-    }
+    color: $cream;
   }
 }
 

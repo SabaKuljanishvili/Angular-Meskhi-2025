@@ -33,4 +33,10 @@ export class HomeComponent {
     'https://picsum.photos/id/1022/600/400',
     'https://picsum.photos/id/1023/600/400'
   ];
+
+    fourSwiperImages = [
+    'https://picsum.photos/id/1011/600/400',
+    'https://picsum.photos/id/1012/600/400',
+    'https://picsum.photos/id/1013/600/400'
+  ];
 }
