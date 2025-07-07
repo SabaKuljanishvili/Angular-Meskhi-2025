@@ -654,14 +654,14 @@ a {
 
 
 
-
 .slider {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap; 
-  gap: 30px;
+  gap: 150px;
   padding: 40px 20px;
+
 
   app-horizontal-slider {
     width: 600px;
@@ -685,6 +685,8 @@ a {
     color: $cream;
   }
 }
+
+
 
 
 
