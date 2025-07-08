@@ -82,7 +82,7 @@ $border-color: rgba(255, 255, 255, 0.1);
   filter: blur(60px);
   opacity: 0.3;
   top: 168%;
-  right:-2%;
+  right:3%;
     animation: gentleGlow 5s ease-in-out infinite;
 }
 
@@ -192,6 +192,21 @@ $border-color: rgba(255, 255, 255, 0.1);
 
 
 
+// .text-3d {
+//   font-family: 'Orbitron', sans-serif;
+//   font-size: 130px;
+//   font-weight: bold;
+//   text-transform: uppercase;
+//   text-align: center;
+//   background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   transform: scale(1);
+//     animation:
+//     zoomEffect 3s 1 normal forwards ease-in-out,           
+//    shadowGlow 3s normal forwards ease-in-out  0s; 
+
+// }
+
 .text-3d {
   font-family: 'Orbitron', sans-serif;
   font-size: 130px;
@@ -200,70 +215,99 @@ $border-color: rgba(255, 255, 255, 0.1);
   text-align: center;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
   transform: scale(1);
-    animation:
-    zoomEffect 3s 1 normal forwards ease-in-out,           
-   shadowGlow 3s normal forwards ease-in-out  0s; 
+  animation:
+    zoomEffect 3s 1 normal forwards ease-in-out,
+    shadowGlow 3s infinite ease-in-out;
 
+  /* ოქროსფერი degrade ფონზე ტექსტისთვის */
+  background-image: linear-gradient(
+    135deg,
+    #8b7500,
+    #a67c00,
+    #5c4500,
+    #3b2c00
+  );
 }
 
+.text-3d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%; 
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-24deg);
+  animation: shine 3s infinite;
+  pointer-events: none;
+}
+
+
+@keyframes shine {
+  0% {
+    left: -20%;
+    width: 30px;
+    opacity: 0;
+    transform: skewX(-50deg);
+      border-radius: 0px;
+  }
+
+  50% {
+    opacity: 1;
+    width: 30px;
+  }
+  100% {
+    left: 100%;
+    width: 0px;
+    opacity: 0;
+    transform: skewX(20deg);
+  }
+}
 
 @keyframes shadowGlow {
-    0% {
-        text-shadow: 
-            0 0 6px rgba(255, 215, 0, 0.4),     /* #FFD700 - Bright Gold */
-            0 0 12px rgba(212, 175, 55, 0.3),  /* #D4AF37 - Metallic Gold */
-            0 2px 0 #B8860B,                    /* Darkgoldenrod */
-            0 4px 0 #996515,                    /* Dark Golden Brown */
-            0 6px 0 #704214,                    /* Deep Bronze Gold */
-            0 8px 10px rgba(0, 0, 0, 0.35);
-        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.25));
-    }
-    25% {
-        text-shadow: 
-            0 0 10px rgba(255, 215, 0, 0.5),
-            0 0 18px rgba(212, 175, 55, 0.4),
-            0 2px 0 #B8860B,
-            0 4px 0 #996515,
-            0 6px 0 #704214,
-            0 8px 10px rgba(0, 0, 0, 0.35),
-            0 12px 15px rgba(184, 134, 11, 0.2);
-        filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
-    }
-    50% {
-        text-shadow: 
-            0 0 14px rgba(255, 215, 0, 0.6),
-            0 0 22px rgba(212, 175, 55, 0.5),
-            0 0 30px rgba(218, 165, 32, 0.3),   /* #DAA520 - Goldenrod */
-            0 2px 0 #B8860B,
-            0 4px 0 #996515,
-            0 6px 0 #704214,
-            0 8px 10px rgba(0, 0, 0, 0.35),
-            0 16px 20px rgba(184, 134, 11, 0.25);
-        filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.4));
-    }
-    75% {
-        text-shadow: 
-            0 0 10px rgba(255, 215, 0, 0.5),
-            0 0 18px rgba(212, 175, 55, 0.4),
-            0 2px 0 #B8860B,
-            0 4px 0 #996515,
-            0 6px 0 #704214,
-            0 8px 10px rgba(0, 0, 0, 0.35),
-            0 12px 15px rgba(184, 134, 11, 0.2);
-        filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
-    }
-    100% {
-        text-shadow: 
-            0 0 6px rgba(255, 215, 0, 0.4),
-            0 0 12px rgba(212, 175, 55, 0.3),
-            0 2px 0 #B8860B,
-            0 4px 0 #996515,
-            0 6px 0 #704214,
-            0 8px 10px rgba(0, 0, 0, 0.35);
-        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.25));
-    }
+  0% {
+    text-shadow:
+      0 0 6px rgba(166, 124, 0, 0.4),
+      0 0 12px rgba(139, 117, 0, 0.35),
+      0 2px 0 #8B7500,
+      0 4px 0 #5C4500,
+      0 6px 0 #3b2c00,
+      0 8px 10px rgba(0, 0, 0, 0.45);
+    filter: drop-shadow(0 0 10px rgba(139, 117, 0, 0.35));
+  }
+  50% {
+    text-shadow:
+      0 0 14px rgba(166, 124, 0, 0.6),
+      0 0 24px rgba(139, 117, 0, 0.5),
+      0 0 32px rgba(92, 69, 0, 0.35),
+      0 2px 0 #8B7500,
+      0 4px 0 #5C4500,
+      0 6px 0 #3b2c00,
+      0 8px 14px rgba(0, 0, 0, 0.55),
+      0 16px 24px rgba(92, 69, 0, 0.3);
+    filter: drop-shadow(0 0 18px rgba(139, 117, 0, 0.45));
+  }
+  100% {
+    text-shadow:
+      0 0 6px rgba(166, 124, 0, 0.4),
+      0 0 12px rgba(139, 117, 0, 0.35),
+      0 2px 0 #8B7500,
+      0 4px 0 #5C4500,
+      0 6px 0 #3b2c00,
+      0 8px 10px rgba(0, 0, 0, 0.45);
+    filter: drop-shadow(0 0 10px rgba(139, 117, 0, 0.35));
+  }
 }
+
+
 
 
 
@@ -287,7 +331,7 @@ text-shadow: 5px 5px #558abb;
 @keyframes zoomEffect {
   0% {
     opacity: 0;
-    transform: scale(0.2);
+    transform: scale(0.6);
   }
   50% {
     transform: scale(1.1);
@@ -651,8 +695,51 @@ a {
 }
 
 
+.blur {
+    filter: blur(20px);
+    width: 110% !important;
+    display: flex;
+    left: -20px;
+    height: 130px;
+    background-image: linear-gradient(to right top, #232a48, #25304e, #222f51, #1f2d53, #1b2c56, #132355,);
+    position: absolute;
+    margin-top: -65px;
+}
+
+#sliders {
+  padding: 180px;
+  // background: rgba(29, 31, 32, 0.904)
+  // radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%);
+
+  // background-color: #333;
+  // background-size: 11px 11px;
+
+  background-image: linear-gradient(
+  to right top,
+  #070707,
+  #121218,
+  #1d1d29,
+  #29293a,
+  #35354c,
+  #3d3d53,
+  #46465a,
+  #4f4f61,
+  #4a4a5c,
+  #444456,
+  #3e3e50,
+  #38384a
+);
 
 
+
+}
+.one-slider {
+  display: flex;
+}
+.two-slider {
+  display: flex;
+  justify-content: end;
+}
 
 .slider {
   display: flex;
@@ -677,12 +764,13 @@ a {
     padding: 20px;
     border-left: 5px solid $gold-dark;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 4px 4px 12px rgba(255, 255, 255, );
     flex-shrink: 0;
+    background-color: #efe9db;
   }
   p {
     margin-bottom: 1.5rem;
-    color: $cream;
+    color: #1a2a3a;
   }
 }
 
