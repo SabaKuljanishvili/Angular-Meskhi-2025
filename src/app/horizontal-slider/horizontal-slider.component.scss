@@ -75,7 +75,15 @@
       }
     }
   }
+@media (max-width: 1220px) {
+  .swiper {
+    height: 300px;
+  }
+  .slides {
+    height: 300px;
+  }
 
+}
   // ✅ მობილური ეკრანისთვის ადაპტაცია
   @media (max-width: 768px) {
     height: 250px;
