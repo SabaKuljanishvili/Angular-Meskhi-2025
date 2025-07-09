@@ -1,23 +1,13 @@
   <section class="contact">
-  <a class="title">ჩვენი საკონტაქტო ინფორმაცია</a> 
-    <div class="cards">
-        <div class="card red">
-            <p class="tip">Gmail</p>
-            <p class="second-text">Meskhi.2000.f#gmail.com</p>
-        </div>
-        <div class="card blue">
-            <p class="tip">ოფისი</p>
-            <p class="second-text">(+995)598-014-014</p>
-        </div>
-        <div class="card green">
-            <p class="tip">WhatsApp</p>
-            <p class="second-text">(+995)597-922-922</p>
-        </div>
-        <div class="card black">
-            <p class="tip">WeChat</p>
-            <p class="second-text">(+995)597-922-922</p>
-        </div>
-              </div>
+ 
+  <a class="title">ჩვენი საკონტაქტო ინფორმაცია</a>
+
+  <div class="cards">
+    <div class="card" *ngFor="let card of contactCards" [ngClass]="card.type">
+      <p class="tip">{{ card.title }}</p>
+      <p class="second-text">{{ card.info }}</p>
+    </div>
+  </div>
 
 <section>
 <form class="contact-form" action="#" method="post" id="contact">
