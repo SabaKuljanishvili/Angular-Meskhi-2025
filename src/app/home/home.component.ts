@@ -1,10 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Swiper, SwiperOptions } from 'swiper/types';
-import { register } from 'swiper/element/bundle';
 import { HorizontalSliderComponent } from "../horizontal-slider/horizontal-slider.component";
-import { VerticalSliderComponent } from "../vertical-slider/vertical-slider.component";
-register(); 
+import { register } from 'swiper/element/bundle';
+register();
 
 @Component({
   selector: 'app-home',
@@ -39,4 +37,7 @@ export class HomeComponent {
     'https://picsum.photos/id/1012/600/400',
     'https://picsum.photos/id/1013/600/400'
   ];
+
+
+  
 }
