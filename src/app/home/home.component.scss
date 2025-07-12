@@ -110,17 +110,16 @@ $border-color: rgba(255, 255, 255, 0.1);
 
 
 
-.container {
-  height: 100%;
-}
+// .container {
+//   height: 100%;
+// }
 
 .video-container {
-
+  // background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin: 0;
   perspective: 500px;
   width: 100%;
   video {
@@ -131,6 +130,7 @@ $border-color: rgba(255, 255, 255, 0.1);
 .title-text {
   // background-color: red;
   max-width: 650px;
+  margin-top: -8%;
 }
 
 .boxs {
@@ -140,6 +140,8 @@ $border-color: rgba(255, 255, 255, 0.1);
   border: 1px solid transparent; /* Just to visualize the container if needed */
   // background-color: white;
   margin-left: 200px;
+    margin-top: -8%;
+
 }
 
 .box1, .box2, .box3, .box4, .box5, .box6, .box7, .box8 {
@@ -668,7 +670,7 @@ a {
   // background: rgba($dark-bg-end, 0.8);
   // box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin: 50px 0;
+  margin: 15% 0;
   
   .skills-title {
     text-align: center;
@@ -868,7 +870,7 @@ a {
   justify-content: end;
 }
 
-.slider {
+.sliderr {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -901,6 +903,80 @@ a {
   }
 }
 
+
+.sliders {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr;
+  // background-color: #43aa8b;
+  width: fit-content;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  gap: 20px;
+}
+.sliders .slider:nth-of-type(1) {
+  // background-color: #fce4ec; 
+  margin-left: 20%;
+}
+
+.sliders .slider:nth-of-type(2) {
+  // background-color: red;
+  margin-left: -10%;
+}
+
+
+.sliders .slider:nth-child(1) .slider-track {
+  animation-duration: 10s;
+}
+
+.sliders .slider:nth-child(2) .slider-track {
+  animation-duration: 6s;
+}
+
+.slider {
+  width: 90%;
+  max-width: 1200px;
+  overflow: hidden;
+     /* აქ ვაკეთებთ კიდეებში დაბლარვის ეფექტს */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.slider-track {
+  display: flex;
+  gap: 20px;
+  animation: moveBackAndForth 6s ease-in-out infinite alternate;
+}
+
+.box {
+  width: 350px;
+  height: 150px;
+  border-radius: 15px;
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.box1 { background-color: #ff4b5c; }
+  &.box2 { background-color: #56cfe1; }
+  &.box3 { background-color: #f9c74f; color: #000; }
+  &.box4 { background-color: #43aa8b; }
+  &.box5 { background-color: #9d4edd; }
+  &.box6 { background-color: #ef476f; }
+}
+
+@keyframes moveBackAndForth {
+  0% {
+    transform: translateX(25px);
+  }
+  100% {
+    transform: translateX(-80%);
+  }
+}
 
 // .swiper-container {
 //   width: 500px ;
@@ -973,7 +1049,7 @@ swiper-slide img {
   background-color: green;
 }
 
-.slider {
+.sliderr {
   // display: flex;
   // justify-content: center;
   // align-items: center;
@@ -1036,7 +1112,7 @@ swiper-slide img {
   }
 }
 
-.slider {
+.sliderr {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 50px;
