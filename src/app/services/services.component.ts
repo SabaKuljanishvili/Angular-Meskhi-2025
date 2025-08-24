@@ -14,7 +14,9 @@ import { CommonModule } from '@angular/common';
         </div>
         
         <div class="services-grid">
-          <div class="service-card" *ngFor="let service of services; let i = index">
+          <div class="service-card" 
+               *ngFor="let service of services; let i = index"
+               [style.animation-delay]="(i * 0.1) + 's'">
             <div class="service-icon">
               <i [class]="service.icon"></i>
             </div>
@@ -23,9 +25,9 @@ import { CommonModule } from '@angular/common';
             <div class="service-features">
               <span class="feature" *ngFor="let feature of service.features">{{ feature }}</span>
             </div>
-            <button class="learn-more-btn" (click)="openServiceDetails(service)">
+            <!-- <button class="learn-more-btn" (click)="openServiceDetails(service)">
               გაიგეთ მეტი
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -36,6 +38,20 @@ import { CommonModule } from '@angular/common';
       padding: 100px 0;
       background: linear-gradient(135deg, #f7f5f0 0%, #efe9db 100%);
       position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: servicesFadeIn 1.2s ease-out 0.5s forwards;
+    }
+
+    @keyframes servicesFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .services::before {
@@ -46,6 +62,7 @@ import { CommonModule } from '@angular/common';
       right: 0;
       height: 100px;
       background: linear-gradient(to bottom, #1a2a3a, transparent);
+      opacity: 0.8;
     }
 
     .container {
@@ -57,6 +74,20 @@ import { CommonModule } from '@angular/common';
     .section-header {
       text-align: center;
       margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: headerFadeIn 1s ease-out 0.8s forwards;
+    }
+
+    @keyframes headerFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .section-title {
@@ -101,10 +132,20 @@ import { CommonModule } from '@angular/common';
       padding: 40px 30px;
       text-align: center;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.4s ease;
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(212, 175, 55, 0.1);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: cardFadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes cardFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .service-card::before {
@@ -117,13 +158,13 @@ import { CommonModule } from '@angular/common';
       background: linear-gradient(90deg, #d4af37, #b8860b);
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.4s ease;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .service-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      border-color: rgba(212, 175, 55, 0.3);
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      border-color: rgba(212, 175, 55, 0.4);
     }
 
     .service-card:hover::before {
@@ -139,17 +180,22 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: center;
       margin: 0 auto 25px;
-      transition: all 0.4s ease;
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .service-card:hover .service-icon {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+      transform: scale(1.15) rotate(8deg);
+      box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
     }
 
     .service-icon i {
       font-size: 35px;
       color: white;
+      transition: all 0.6s ease;
+    }
+
+    .service-card:hover .service-icon i {
+      transform: scale(1.1);
     }
 
     .service-title {
@@ -157,6 +203,11 @@ import { CommonModule } from '@angular/common';
       font-weight: 600;
       color: #1a2a3a;
       margin-bottom: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .service-card:hover .service-title {
+      color: #d4af37;
     }
 
     .service-description {
@@ -164,6 +215,11 @@ import { CommonModule } from '@angular/common';
       line-height: 1.6;
       margin-bottom: 20px;
       font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    .service-card:hover .service-description {
+      color: #444;
     }
 
     .service-features {
@@ -182,6 +238,14 @@ import { CommonModule } from '@angular/common';
       font-size: 0.8rem;
       font-weight: 500;
       border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover .feature {
+      background: rgba(212, 175, 55, 0.2);
+      color: #8b7500;
+      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-2px);
     }
 
     .learn-more-btn {
