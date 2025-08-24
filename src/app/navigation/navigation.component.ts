@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
           <li><a href="#hero" (click)="scrollToSection('hero'); closeMenu()">Home</a></li>
           <li><a href="#services" (click)="scrollToSection('services'); closeMenu()">Services</a></li>
           <li><a href="#gallery" (click)="scrollToSection('gallery'); closeMenu()">Gallery</a></li>
-          <li><a href="#about" (click)="scrollToSection('about'); closeMenu()">About</a></li>
+          <!-- <li><a href="#about" (click)="scrollToSection('about'); closeMenu()">About</a></li> -->
           <li><a href="#contact" (click)="scrollToSection('contact'); closeMenu()">Contact</a></li>
         </ul>
         
@@ -169,6 +169,7 @@ import { CommonModule } from '@angular/common';
         transform: translateY(0);
         opacity: 1;
         visibility: visible;
+        max-height: 290px;
       }
 
       .nav-links li {
