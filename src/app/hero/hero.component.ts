@@ -54,6 +54,7 @@ import { CommonModule } from '@angular/common';
       justify-content: center;
       overflow: hidden;
       background: linear-gradient(135deg, #1a2a3a 0%, #2d4a6b 50%, #1a2a3a 100%);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .hero-background {
@@ -76,6 +77,7 @@ import { CommonModule } from '@angular/common';
       border-radius: 50%;
       background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(228, 220, 192, 0.05));
       animation: float 6s ease-in-out infinite;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .shape-1 {
@@ -137,6 +139,7 @@ import { CommonModule } from '@angular/common';
       right: 0;
       bottom: 0;
       background: radial-gradient(circle at center, transparent 0%, rgba(26, 42, 58, 0.8) 100%);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .hero-content {
@@ -145,10 +148,12 @@ import { CommonModule } from '@angular/common';
       text-align: center;
       max-width: 800px;
       padding: 0 20px;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .hero-title {
       margin-bottom: 30px;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .title-line {
@@ -162,6 +167,7 @@ import { CommonModule } from '@angular/common';
       -webkit-text-fill-color: transparent;
       text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
       animation: titleGlow 3s ease-in-out infinite alternate;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .title-line:last-child {
@@ -187,6 +193,7 @@ import { CommonModule } from '@angular/common';
       margin-left: auto;
       margin-right: auto;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .hero-buttons {
@@ -194,6 +201,7 @@ import { CommonModule } from '@angular/common';
       gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .btn {
@@ -203,7 +211,7 @@ import { CommonModule } from '@angular/common';
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       text-transform: uppercase;
       letter-spacing: 1px;
       position: relative;
@@ -256,6 +264,7 @@ import { CommonModule } from '@angular/common';
       z-index: 2;
       text-align: center;
       animation: bounce 2s infinite;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .scroll-arrow {
@@ -265,12 +274,14 @@ import { CommonModule } from '@angular/common';
       border-bottom: 2px solid #d4af37;
       transform: rotate(45deg);
       margin: 0 auto 10px;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .scroll-text {
       color: #d4af37;
       font-size: 0.9rem;
       font-weight: 500;
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     @keyframes bounce {
@@ -282,6 +293,24 @@ import { CommonModule } from '@angular/common';
       }
       60% {
         transform: translateX(-50%) translateY(-5px);
+      }
+    }
+
+    // Enhanced scroll behavior
+    .hero.scrolling {
+      .hero-content {
+        transform: translateY(-20px);
+        opacity: 0.8;
+      }
+      
+      .scroll-indicator {
+        opacity: 0.6;
+        transform: translateX(-50%) translateY(10px);
+      }
+      
+      .shape {
+        opacity: 0.3;
+        transform: scale(0.95);
       }
     }
 
@@ -301,10 +330,26 @@ export class HeroComponent {
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {
+      // Add smooth scroll behavior
       element.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       });
+      
+      // Add scroll effect to hero
+      this.addScrollEffect();
+    }
+  }
+
+  private addScrollEffect() {
+    const hero = document.querySelector('.hero') as HTMLElement;
+    if (hero) {
+      hero.classList.add('scrolling');
+      
+      // Remove effect after animation completes
+      setTimeout(() => {
+        hero.classList.remove('scrolling');
+      }, 1000);
     }
   }
 }
