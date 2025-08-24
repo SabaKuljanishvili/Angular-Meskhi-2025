@@ -1,10 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
   imports: [CommonModule],
+  host: {
+    '(touchstart)': 'onTouchStart($event)',
+    '(touchmove)': 'onTouchMove($event)',
+    '(touchend)': 'onTouchEnd($event)'
+  },
   template: `
     <section id="gallery" class="gallery">
       <div class="container">
@@ -18,12 +23,31 @@ import { CommonModule } from '@angular/common';
           <div class="carousel-container">
             <div class="carousel-track" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
               <div class="carousel-slide" *ngFor="let image of showcaseImages; let i = index">
-                <img [src]="'public/frezebi/' + image" [alt]="'Showcase image ' + (i + 1)">
+                <div class="image-container">
+                  <!-- Progressive loading with placeholder -->
+                  <div class="image-placeholder" *ngIf="!imageLoaded[i]">
+                    <div class="placeholder-content">
+                      <div class="placeholder-spinner"></div>
+                      <span>იტვირთება...</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Optimized image for carousel -->
+                  <img 
+                    [src]="getOptimizedImagePath(showcaseCategories[i], image, 'large')" 
+                    [alt]="'Showcase image ' + (i + 1)"
+                    [loading]="'lazy'"
+                    (load)="onImageLoad(i)"
+                    (error)="onImageError(i)"
+                    class="carousel-image"
+                    [class.loaded]="imageLoaded[i]">
+                </div>
+                
                 <div class="slide-overlay">
                   <div class="slide-content">
                     <h3>პროდუქტი {{ i + 1 }}</h3>
-                    <p>უმაღლესი ხარისხის დამზადება</p>
-                    <button class="view-btn" (click)="openLightbox(i)">
+                    <p>{{ getCategoryName(showcaseCategories[i]) }}</p>
+                    <button class="view-btn" (click)="openShowcaseLightbox(i)">
                       <i class="fas fa-eye"></i> ნახვა
                     </button>
                   </div>
@@ -71,9 +95,28 @@ import { CommonModule } from '@angular/common';
         <div class="category-gallery">
           <div class="gallery-grid">
             <div class="gallery-item" 
-                 *ngFor="let image of getCategoryImages(); let i = index"
-                 (click)="openLightbox(i)">
-              <img [src]="'public/' + activeCategory + '/' + image" [alt]="'Gallery image ' + (i + 1)">
+                 *ngFor="let image of getCategoryImages(); let i = index; trackBy: trackByImage"
+                 (click)="openLightbox(i)"
+                 #galleryItem>
+              <div class="image-container">
+                <!-- Progressive loading with placeholder -->
+                <div class="image-placeholder" *ngIf="!galleryImageLoaded[this.activeCategory][i]">
+                  <div class="placeholder-content">
+                    <div class="placeholder-spinner"></div>
+                  </div>
+                </div>
+                
+                <!-- Optimized image for gallery grid -->
+                <img 
+                  [src]="getOptimizedImagePath(activeCategory, image, 'medium')" 
+                  [alt]="'Gallery image ' + (i + 1)"
+                  [loading]="'lazy'"
+                  (load)="onGalleryImageLoad(i)"
+                  (error)="onGalleryImageError(i)"
+                  class="gallery-image"
+                  [class.loaded]="galleryImageLoaded[this.activeCategory][i]">
+              </div>
+              
               <div class="item-overlay">
                 <i class="fas fa-search-plus"></i>
                 <span class="image-title">{{ getImageTitle(image) }}</span>
@@ -85,13 +128,32 @@ import { CommonModule } from '@angular/common';
       
       <!-- Enhanced Lightbox Modal -->
       <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
-        <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <div class="lightbox-content" 
+             (click)="$event.stopPropagation()"
+             (touchstart)="onLightboxTouchStart($event)"
+             (touchmove)="onLightboxTouchMove($event)"
+             (touchend)="onLightboxTouchEnd($event)">
           <button class="close-btn" (click)="closeLightbox()">
             <i class="fas fa-times"></i>
           </button>
           
           <div class="lightbox-image-container">
-            <img [src]="currentLightboxImage" alt="Lightbox image" class="lightbox-image">
+            <!-- Progressive loading for lightbox -->
+            <div class="lightbox-placeholder" *ngIf="!lightboxImageLoaded">
+              <div class="placeholder-content">
+                <div class="placeholder-spinner"></div>
+                <span>იტვირთება...</span>
+              </div>
+            </div>
+            
+            <img 
+              [src]="getOptimizedImagePath(activeCategory, getCurrentImageName(), 'xlarge')" 
+              [alt]="'Lightbox image'"
+              (load)="onLightboxImageLoad()"
+              (error)="onLightboxImageError()"
+              class="lightbox-image"
+              [class.loaded]="lightboxImageLoaded">
+            
             <div class="image-info">
               <h3>{{ getCurrentImageTitle() }}</h3>
               <p>{{ getCurrentImageCategory() }}</p>
@@ -112,7 +174,9 @@ import { CommonModule } from '@angular/common';
                  *ngFor="let image of getCurrentCategoryImages(); let i = index"
                  [class.active]="i === currentImageIndex"
                  (click)="goToImage(i)">
-              <img [src]="'public/' + activeCategory + '/' + image" [alt]="'Thumbnail ' + (i + 1)">
+              <img [src]="getOptimizedImagePath(activeCategory, image, 'thumb')" 
+                   [alt]="'Thumbnail ' + (i + 1)"
+                   loading="lazy">
             </div>
           </div>
         </div>
@@ -166,6 +230,84 @@ import { CommonModule } from '@angular/common';
       line-height: 1.6;
     }
 
+    /* Image Container and Placeholder Styles */
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .image-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #2d4a6b 0%, #1a2a3a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .placeholder-content {
+      text-align: center;
+      color: #d4af37;
+    }
+
+    .placeholder-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(212, 175, 55, 0.3);
+      border-top: 3px solid #d4af37;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .lightbox-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(26, 42, 58, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      border-radius: 15px;
+    }
+
+    /* Image Styles with Progressive Loading */
+    .carousel-image,
+    .gallery-image,
+    .lightbox-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      /* Image optimization for faster loading */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      /* Reduce image quality for faster loading on mobile */
+      image-rendering: pixelated;
+    }
+
+    .carousel-image.loaded,
+    .gallery-image.loaded,
+    .lightbox-image.loaded {
+      opacity: 1;
+    }
+
     /* Main Carousel */
     .main-carousel {
       margin-bottom: 80px;
@@ -177,23 +319,23 @@ import { CommonModule } from '@angular/common';
       overflow: hidden;
       border-radius: 20px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     .carousel-track {
       display: flex;
       transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      touch-action: pan-y pinch-zoom;
+      -webkit-overflow-scrolling: touch;
     }
 
     .carousel-slide {
       flex: 0 0 100%;
       position: relative;
       height: 500px;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     .slide-overlay {
@@ -208,6 +350,7 @@ import { CommonModule } from '@angular/common';
       justify-content: center;
       opacity: 0;
       transition: opacity 0.4s ease;
+      z-index: 2;
     }
 
     .carousel-slide:hover .slide-overlay {
@@ -274,6 +417,7 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: center;
       font-size: 1.2rem;
+      z-index: 3;
     }
 
     .carousel-nav:hover:not(:disabled) {
@@ -302,6 +446,7 @@ import { CommonModule } from '@angular/common';
       transform: translateX(-50%);
       display: flex;
       gap: 10px;
+      z-index: 3;
     }
 
     .indicator {
@@ -336,6 +481,7 @@ import { CommonModule } from '@angular/common';
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 3;
     }
 
     .play-pause-btn:hover {
@@ -388,13 +534,6 @@ import { CommonModule } from '@angular/common';
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
-    .gallery-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
     .gallery-item:hover img {
       transform: scale(1.1);
     }
@@ -414,6 +553,7 @@ import { CommonModule } from '@angular/common';
       transition: opacity 0.3s ease;
       color: white;
       text-align: center;
+      z-index: 2;
     }
 
     .gallery-item:hover .item-overlay {
@@ -444,6 +584,8 @@ import { CommonModule } from '@angular/common';
       align-items: center;
       justify-content: center;
       padding: 20px;
+      touch-action: manipulation;
+      -webkit-overflow-scrolling: touch;
     }
 
     .lightbox-content {
@@ -454,11 +596,15 @@ import { CommonModule } from '@angular/common';
       border-radius: 20px;
       padding: 20px;
       box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      touch-action: pan-x pan-y;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .lightbox-image-container {
       position: relative;
       margin-bottom: 20px;
+      overflow: hidden;
     }
 
     .lightbox-image {
@@ -467,6 +613,11 @@ import { CommonModule } from '@angular/common';
       border-radius: 15px;
       max-height: 70vh;
       object-fit: contain;
+      touch-action: pan-x pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     .image-info {
@@ -578,12 +729,24 @@ import { CommonModule } from '@angular/common';
 
     /* Responsive Design */
     @media (max-width: 768px) {
+      .gallery {
+        padding: 60px 0;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1.1rem;
+      }
+      
       .carousel-slide {
-        height: 300px;
+        height: 350px;
       }
       
       .slide-content h3 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
       
       .slide-content p {
@@ -595,9 +758,14 @@ import { CommonModule } from '@angular/common';
         font-size: 1rem;
       }
       
+      /* Hide navigation buttons on tablet and below */
       .carousel-nav {
-        width: 40px;
-        height: 40px;
+        display: none;
+      }
+      
+      /* Hide play/pause button on tablet and below */
+      .play-pause-btn {
+        display: none;
       }
       
       .lightbox-content {
@@ -612,24 +780,156 @@ import { CommonModule } from '@angular/common';
         width: 60px;
         height: 45px;
       }
+      
+      .category-tabs {
+        gap: 15px;
+      }
+      
+      .tab-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+      
+      /* Mobile scrolling optimizations */
+      .gallery {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+      }
+      
+      .carousel-container {
+        touch-action: pan-y;
+      }
+      
+      .gallery-grid {
+        touch-action: pan-y;
+      }
     }
 
     @media (max-width: 480px) {
+      .gallery {
+        padding: 40px 0;
+      }
+      
       .section-title {
         font-size: 2rem;
       }
       
+      .section-subtitle {
+        font-size: 1rem;
+      }
+      
       .carousel-slide {
-        height: 250px;
+        height: 280px;
+      }
+      
+      .slide-content h3 {
+        font-size: 1.6rem;
+      }
+      
+      .slide-content p {
+        font-size: 0.9rem;
+      }
+      
+      .view-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .category-tabs {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .tab-btn {
+        width: 100%;
+        max-width: 200px;
       }
       
       .gallery-grid {
         grid-template-columns: 1fr;
+        gap: 15px;
       }
+      
+      .gallery-item {
+        aspect-ratio: 3/2;
+      }
+      
+      .lightbox-content {
+        padding: 10px;
+        max-width: 95%;
+        max-height: 95%;
+      }
+      
+      .lightbox-image {
+        max-height: 60vh;
+      }
+      
+      .lightbox-thumbnails {
+        gap: 5px;
+      }
+      
+      .lightbox-thumbnail {
+        width: 50px;
+        height: 40px;
+      }
+      
+      /* Hide lightbox navigation buttons on mobile for better touch experience */
+      .lightbox-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .carousel-slide {
+        height: 250px;
+      }
+      
+      .slide-content h3 {
+        font-size: 1.4rem;
+      }
+      
+      .view-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    /* Performance optimizations */
+    .gallery-item {
+      will-change: transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    .carousel-slide {
+      will-change: transform;
+      backface-visibility: hidden;
+    }
+
+    /* Loading states */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    /* Smooth transitions */
+    .gallery-item img,
+    .carousel-image {
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
   `]
 })
-export class GalleryComponent implements OnInit, OnDestroy {
+export class GalleryComponent implements OnInit, OnDestroy, AfterViewInit {
   activeCategory = 'frezebi';
   lightboxOpen = false;
   currentLightboxImage = '';
@@ -637,6 +937,21 @@ export class GalleryComponent implements OnInit, OnDestroy {
   currentSlide = 0;
   isAutoplayActive = true;
   autoplayInterval: any;
+  
+  // Image loading states
+  imageLoaded: boolean[] = [];
+  galleryImageLoaded: { [key: string]: boolean[] } = {};
+  lightboxImageLoaded = false;
+  
+  // Touch/swipe variables
+  touchStartX = 0;
+  touchStartY = 0;
+  touchEndX = 0;
+  touchEndY = 0;
+  minSwipeDistance = 50;
+
+  // Intersection Observer for lazy loading
+  private observer: IntersectionObserver | null = null;
 
   categories = [
     { key: 'frezebi', name: 'ფრეზები' },
@@ -645,21 +960,115 @@ export class GalleryComponent implements OnInit, OnDestroy {
     { key: 'fuganebi', name: 'ფუგანები' }
   ];
 
-  showcaseImages = [
-    'IMG_8035.JPG',
-    'IMG_8037.JPG',
-    'IMG_8040.JPG',
-    'IMG_8047.JPG',
-    'IMG_8076.JPG',
-    'IMG_8077.JPG'
-  ];
+  showcaseImages: string[] = [];
+  showcaseCategories: string[] = [];
 
   ngOnInit() {
+    this.initializeImageLoadingStates();
+    this.generateRandomShowcase();
     this.startAutoplay();
+  }
+
+  ngAfterViewInit() {
+    this.setupIntersectionObserver();
   }
 
   ngOnDestroy() {
     this.stopAutoplay();
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+  }
+
+  private initializeImageLoadingStates() {
+    // Initialize loading states for showcase images
+    this.imageLoaded = new Array(6).fill(false);
+    
+    // Initialize loading states for gallery images
+    this.categories.forEach(category => {
+      const images = this.getCategoryImages(category.key);
+      this.galleryImageLoaded[category.key] = new Array(images.length).fill(false);
+    });
+  }
+
+  private setupIntersectionObserver() {
+    // Create intersection observer for lazy loading
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          const dataSrc = img.getAttribute('data-src');
+          if (dataSrc) {
+            img.setAttribute('src', dataSrc);
+            img.removeAttribute('data-src');
+            this.observer?.unobserve(img);
+          }
+        }
+      });
+    }, {
+      rootMargin: '50px 0px',
+      threshold: 0.1
+    });
+  }
+
+  // Image optimization methods - now using optimized images
+  getOptimizedImagePath(category: string, imageName: string, size: 'thumb' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium'): string {
+    const basePath = `/assets/images/${category}/optimized`;
+    const nameWithoutExt = imageName.replace(/\.[^/.]+$/, '');
+    
+    // Return optimized image path with specified size
+    return `${basePath}/${nameWithoutExt}_${size}.jpg`;
+  }
+
+  // Method to get lighter images for faster loading
+  getLightImagePath(category: string, imageName: string): string {
+    // For mobile devices, use smaller images
+    const isMobile = window.innerWidth <= 768;
+    const size = isMobile ? 'small' : 'medium';
+    return this.getOptimizedImagePath(category, imageName, size);
+  }
+
+  // Image loading event handlers
+  onImageLoad(index: number) {
+    this.imageLoaded[index] = true;
+  }
+
+  onImageError(index: number) {
+    console.warn(`Failed to load showcase image ${index}`);
+    this.imageLoaded[index] = true; // Hide placeholder even on error
+  }
+
+  onGalleryImageLoad(index: number) {
+    if (this.galleryImageLoaded[this.activeCategory]) {
+      this.galleryImageLoaded[this.activeCategory][index] = true;
+    }
+  }
+
+  onGalleryImageError(index: number) {
+    console.warn(`Failed to load gallery image ${index} in category ${this.activeCategory}`);
+    if (this.galleryImageLoaded[this.activeCategory]) {
+      this.galleryImageLoaded[this.activeCategory][index] = true; // Hide placeholder
+    }
+  }
+
+  onLightboxImageLoad() {
+    this.lightboxImageLoaded = true;
+  }
+
+  onLightboxImageError() {
+    console.warn('Failed to load lightbox image');
+    this.lightboxImageLoaded = true; // Hide placeholder
+  }
+
+  // Track by function for better performance
+  trackByImage(index: number, image: string): string {
+    return image;
+  }
+
+  // Get current image name for lightbox
+  getCurrentImageName(): string {
+    const images = this.getCategoryImages();
+    return images[this.currentImageIndex] || '';
   }
 
   startAutoplay() {
@@ -708,6 +1117,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
   setActiveCategory(category: string) {
     this.activeCategory = category;
     this.currentImageIndex = 0;
+    this.lightboxImageLoaded = false;
   }
 
   getCategoryImages(category?: string): string[] {
@@ -744,10 +1154,7 @@ export class GalleryComponent implements OnInit, OnDestroy {
         '399846244_358388080061629_8178238030818943176_n.jpg',
         '7777.JPG',
         'axali 10.jpg',
-        'eskhi logo wriuli.png',
-        'eskhi logo.png',
-        'lent.jpg',
-        'salesi qva.jpg'
+        'lent.jpg'
       ],
       fuganebi: [
         '20230304_093527.jpg',
@@ -794,8 +1201,9 @@ export class GalleryComponent implements OnInit, OnDestroy {
   openLightbox(index: number) {
     this.currentImageIndex = index;
     const images = this.getCategoryImages();
-    this.currentLightboxImage = `public/${this.activeCategory}/${images[index]}`;
+    this.currentLightboxImage = `${this.activeCategory}/${images[index]}`;
     this.lightboxOpen = true;
+    this.lightboxImageLoaded = false;
     this.stopAutoplay();
   }
 
@@ -807,18 +1215,139 @@ export class GalleryComponent implements OnInit, OnDestroy {
   nextImage() {
     const images = this.getCategoryImages();
     this.currentImageIndex = (this.currentImageIndex + 1) % images.length;
-    this.currentLightboxImage = `public/${this.activeCategory}/${images[this.currentImageIndex]}`;
+    this.currentLightboxImage = `${this.activeCategory}/${images[this.currentImageIndex]}`;
+    this.lightboxImageLoaded = false;
   }
 
   previousImage() {
     const images = this.getCategoryImages();
     this.currentImageIndex = this.currentImageIndex === 0 ? images.length - 1 : this.currentImageIndex - 1;
-    this.currentLightboxImage = `public/${this.activeCategory}/${images[this.currentImageIndex]}`;
+    this.currentLightboxImage = `${this.activeCategory}/${images[this.currentImageIndex]}`;
+    this.lightboxImageLoaded = false;
   }
 
   goToImage(index: number) {
     this.currentImageIndex = index;
     const images = this.getCategoryImages();
-    this.currentLightboxImage = `public/${this.activeCategory}/${images[index]}`;
+    this.currentLightboxImage = `${this.activeCategory}/${images[index]}`;
+    this.lightboxImageLoaded = false;
+  }
+
+  generateRandomShowcase() {
+    const allImages: { image: string; category: string }[] = [];
+    
+    // Collect all images from all categories
+    this.categories.forEach(category => {
+      const categoryImages = this.getCategoryImages(category.key);
+      categoryImages.forEach(image => {
+        allImages.push({ image, category: category.key });
+      });
+    });
+    
+    // Shuffle the array and take first 6 images
+    const shuffled = this.shuffleArray(allImages);
+    const selected = shuffled.slice(0, 6);
+    
+    this.showcaseImages = selected.map(item => item.image);
+    this.showcaseCategories = selected.map(item => item.category);
+  }
+
+  shuffleArray<T>(array: T[]): T[] {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
+
+  getCategoryName(categoryKey: string): string {
+    const category = this.categories.find(cat => cat.key === categoryKey);
+    return category ? category.name : '';
+  }
+
+  openShowcaseLightbox(index: number) {
+    this.currentImageIndex = index;
+    const category = this.showcaseCategories[index];
+    const image = this.showcaseImages[index];
+    this.currentLightboxImage = `${category}/${image}`;
+    this.lightboxOpen = true;
+    this.lightboxImageLoaded = false;
+    this.stopAutoplay();
+  }
+
+  // Touch/Swipe methods
+  onTouchStart(event: TouchEvent) {
+    this.touchStartX = event.changedTouches[0].screenX;
+    this.touchStartY = event.changedTouches[0].screenY;
+  }
+
+  onTouchMove(event: TouchEvent) {
+    // Don't prevent default scrolling on mobile
+    // Only prevent if it's a horizontal swipe for carousel
+    const touch = event.changedTouches[0];
+    const deltaX = Math.abs(touch.screenX - this.touchStartX);
+    const deltaY = Math.abs(touch.screenY - this.touchStartY);
+    
+    // Only prevent default if it's clearly a horizontal swipe
+    if (deltaX > deltaY && deltaX > 20) {
+      event.preventDefault();
+    }
+  }
+
+  onTouchEnd(event: TouchEvent) {
+    this.touchEndX = event.changedTouches[0].screenX;
+    this.touchEndY = event.changedTouches[0].screenY;
+    this.handleSwipe();
+  }
+
+  handleSwipe() {
+    const distanceX = this.touchStartX - this.touchEndX;
+    const distanceY = this.touchStartY - this.touchEndY;
+    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
+    
+    if (isHorizontalSwipe && Math.abs(distanceX) > this.minSwipeDistance) {
+      if (distanceX > 0) {
+        // Swipe left - next slide
+        this.nextSlide();
+      } else {
+        // Swipe right - previous slide
+        this.previousSlide();
+      }
+    }
+  }
+
+  // Lightbox touch methods
+  onLightboxTouchStart(event: TouchEvent) {
+    this.touchStartX = event.changedTouches[0].screenX;
+    this.touchStartY = event.changedTouches[0].screenY;
+  }
+
+  onLightboxTouchMove(event: TouchEvent) {
+    // Allow scrolling within the lightbox content
+    event.stopPropagation();
+    // Don't prevent default to allow normal scrolling
+  }
+
+  onLightboxTouchEnd(event: TouchEvent) {
+    this.touchEndX = event.changedTouches[0].screenX;
+    this.touchEndY = event.changedTouches[0].screenY;
+    this.handleLightboxSwipe();
+  }
+
+  handleLightboxSwipe() {
+    const distanceX = this.touchStartX - this.touchEndX;
+    const distanceY = this.touchStartY - this.touchEndY;
+    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
+    
+    if (isHorizontalSwipe && Math.abs(distanceX) > this.minSwipeDistance) {
+      if (distanceX > 0) {
+        // Swipe left - next image
+        this.nextImage();
+      } else {
+        // Swipe right - previous image
+        this.previousImage();
+      }
+    }
   }
 }
