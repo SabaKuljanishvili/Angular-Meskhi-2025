@@ -1,7 +1,7 @@
 <!-- New Modern Home Component Structure -->
 <app-navigation></app-navigation>
-<app-hero></app-hero>
-<app-services></app-services>
+<app-hero #heroSection class="hero-to-services-transition"></app-hero>
+<app-services #servicesSection class="services-transition-overlay"></app-services>
 <app-gallery></app-gallery>
 <app-contact-section></app-contact-section>
 
@@ -10,43 +10,49 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-section">
-        <h3>Meskhi 2000</h3>
-        <p>უმაღლესი ხარისხის მომსახურეობა თქვენი ბიზნესისთვის</p>
+        <h3>{{ footerData.company.name }}</h3>
+        <p>{{ footerData.company.description }}</p>
+        <p class="company-slogan">{{ footerData.company.slogan }}</p>
         <div class="social-links">
-          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+          <a href="{{ footerData.social.facebook }}" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <!-- <a href="{{ footerData.social.instagram }}" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="{{ footerData.social.linkedin }}" class="social-link" target="_blank" rel="noopener">
+            <i class="fab fa-linkedin"></i>
+          </a> -->
         </div>
       </div>
       
       <div class="footer-section">
-        <h4>სერვისები</h4>
+        <h4>{{ footerData.services.title }}</h4>
         <ul>
-          <li><a href="#services">დამზადება</a></li>
-          <li><a href="#services">ალესვები</a></li>
-          <li><a href="#services">გამოჩარხვა</a></li>
-          <li><a href="#services">გრავირება</a></li>
+          <li *ngFor="let service of footerData.services.items">
+            <a [href]="service.link">{{ service.name }}</a>
+          </li>
         </ul>
       </div>
       
       <div class="footer-section">
-        <h4>კონტაქტი</h4>
+        <h4>{{ footerData.contact.title }}</h4>
         <ul>
-          <li><i class="fas fa-phone"></i> +995 XXX XXX XXX</li>
-          <li><i class="fas fa-envelope"></i> info&#64;meskhi2000.ge</li>
-          <li><i class="fas fa-map-marker-alt"></i> თბილისი, საქართველო</li>
+          <li><i class="fas fa-phone"></i> {{ footerData.contact.phone }}</li>
+          <li><i class="fas fa-envelope"></i> {{ footerData.contact.email }}</li>
+          <li><i class="fas fa-map-marker-alt"></i> {{ footerData.contact.address }}</li>
         </ul>
       </div>
       
       <div class="footer-section">
-        <h4>სამუშაო საათები</h4>
-        <p>ორშაბათი - პარასკევი: 9:00 - 18:00</p>
-        <p>შაბათი: 9:00 - 14:00</p>
+        <h4>{{ footerData.workingHours.title }}</h4>
+        <p>{{ footerData.workingHours.weekdays }}</p>
+        <p>{{ footerData.workingHours.sunday }}</p>
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; 2025 Meskhi 2000. ყველა უფლება დაცულია.</p>
+      <p>{{ footerData.copyright }}</p>
     </div>
   </div>
 </footer>
