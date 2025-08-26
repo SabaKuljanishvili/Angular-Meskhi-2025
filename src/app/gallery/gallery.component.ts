@@ -1,15 +1,12 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
-  imports: [CommonModule],
-  host: {
-    '(touchstart)': 'onTouchStart($event)',
-    '(touchmove)': 'onTouchMove($event)',
-    '(touchend)': 'onTouchEnd($event)'
-  },
+  imports: [CommonModule, FormsModule],
+  encapsulation: ViewEncapsulation.None,
   template: `
     <section id="gallery" class="gallery">
       <div class="container">
@@ -17,32 +14,26 @@ import { CommonModule } from '@angular/common';
           <h2 class="section-title">ფოტო გალერეა</h2>
           <p class="section-subtitle">ჩვენი სამუშაოების ნიმუშები და პროდუქტები</p>
         </div>
-        
+
         <!-- Main Photo Carousel -->
         <div class="main-carousel">
           <div class="carousel-container">
-            <div class="carousel-track" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
-              <div class="carousel-slide" *ngFor="let image of showcaseImages; let i = index">
+            <div
+              class="carousel-track"
+              [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'"
+            >
+              <div
+                class="carousel-slide"
+                *ngFor="let image of showcaseImages; let i = index"
+              >
                 <div class="image-container">
-                  <!-- Progressive loading with placeholder -->
-                  <div class="image-placeholder" *ngIf="!imageLoaded[i]">
-                    <div class="placeholder-content">
-                      <div class="placeholder-spinner"></div>
-                      <span>იტვირთება...</span>
-                    </div>
-                  </div>
-                  
-                  <!-- Optimized image for carousel -->
-                  <img 
-                    [src]="getOptimizedImagePath(showcaseCategories[i], image, 'large')" 
+                  <img
+                    [src]="getImagePath(showcaseCategories[i], image)"
                     [alt]="'Showcase image ' + (i + 1)"
-                    [loading]="'lazy'"
-                    (load)="onImageLoad(i)"
-                    (error)="onImageError(i)"
                     class="carousel-image"
-                    [class.loaded]="imageLoaded[i]">
+                  />
                 </div>
-                
+
                 <div class="slide-overlay">
                   <div class="slide-content">
                     <h3>პროდუქტი {{ i + 1 }}</h3>
@@ -54,69 +45,61 @@ import { CommonModule } from '@angular/common';
                 </div>
               </div>
             </div>
-            
+
             <!-- Carousel Navigation -->
-            <button class="carousel-nav prev" (click)="previousSlide()" [disabled]="currentSlide === 0">
+            <button class="carousel-nav prev" (click)="previousSlide()">
               <i class="fas fa-chevron-left"></i>
             </button>
-            <button class="carousel-nav next" (click)="nextSlide()" [disabled]="currentSlide === showcaseImages.length - 1">
+            <button class="carousel-nav next" (click)="nextSlide()">
               <i class="fas fa-chevron-right"></i>
             </button>
-            
+
             <!-- Carousel Indicators -->
             <div class="carousel-indicators">
-              <button 
-                class="indicator" 
+              <button
+                class="indicator"
                 *ngFor="let image of showcaseImages; let i = index"
                 [class.active]="currentSlide === i"
-                (click)="goToSlide(i)">
-              </button>
+                (click)="goToSlide(i)"
+              ></button>
             </div>
-            
+
             <!-- Play/Pause Button -->
             <button class="play-pause-btn" (click)="toggleAutoplay()">
               <i [class]="isAutoplayActive ? 'fas fa-pause' : 'fas fa-play'"></i>
             </button>
           </div>
         </div>
-        
+
         <!-- Category Tabs -->
         <div class="category-tabs">
-          <button 
-            class="tab-btn" 
+          <button
+            class="tab-btn"
             [class.active]="activeCategory === category.key"
             (click)="setActiveCategory(category.key)"
-            *ngFor="let category of categories">
+            *ngFor="let category of categories"
+          >
             {{ category.name }}
           </button>
         </div>
-        
-        <!-- Category Gallery with Grid Layout -->
+
+        <!-- Category Gallery -->
         <div class="category-gallery">
           <div class="gallery-grid">
-            <div class="gallery-item" 
-                 *ngFor="let image of getCategoryImages(); let i = index; trackBy: trackByImage"
-                 (click)="openLightbox(i)"
-                 #galleryItem>
+            <div
+              class="gallery-item"
+              *ngFor="let image of getCategoryImages(); let i = index; trackBy: trackByImage"
+              (click)="openLightbox(i)"
+            >
               <div class="image-container">
-                <!-- Progressive loading with placeholder -->
-                <div class="image-placeholder" *ngIf="!galleryImageLoaded[this.activeCategory][i]">
-                  <div class="placeholder-content">
-                    <div class="placeholder-spinner"></div>
-                  </div>
-                </div>
-                
-                <!-- Optimized image for gallery grid -->
-                <img 
-                  [src]="getOptimizedImagePath(activeCategory, image, 'medium')" 
+                <img
+                  [src]="getImagePath(activeCategory, image)"
                   [alt]="'Gallery image ' + (i + 1)"
-                  [loading]="'lazy'"
-                  (load)="onGalleryImageLoad(i)"
-                  (error)="onGalleryImageError(i)"
                   class="gallery-image"
-                  [class.loaded]="galleryImageLoaded[this.activeCategory][i]">
+                  loading="lazy"
+                />
               </div>
-              
+
               <div class="item-overlay">
                 <i class="fas fa-search-plus"></i>
                 <span class="image-title">{{ getImageTitle(image) }}</span>
@@ -125,41 +108,27 @@ import { CommonModule } from '@angular/common';
           </div>
         </div>
       </div>
-      
-      <!-- Enhanced Lightbox Modal -->
+
+      <!-- Lightbox -->
       <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
-        <div class="lightbox-content" 
-             (click)="$event.stopPropagation()"
-             (touchstart)="onLightboxTouchStart($event)"
-             (touchmove)="onLightboxTouchMove($event)"
-             (touchend)="onLightboxTouchEnd($event)">
+        <div class="lightbox-content" (click)="$event.stopPropagation()">
           <button class="close-btn" (click)="closeLightbox()">
             <i class="fas fa-times"></i>
           </button>
-          
+
           <div class="lightbox-image-container">
-            <!-- Progressive loading for lightbox -->
-            <div class="lightbox-placeholder" *ngIf="!lightboxImageLoaded">
-              <div class="placeholder-content">
-                <div class="placeholder-spinner"></div>
-                <span>იტვირთება...</span>
-              </div>
-            </div>
-            
-            <img 
-              [src]="getOptimizedImagePath(activeCategory, getCurrentImageName(), 'xlarge')" 
+            <img
+              [src]="getImagePath(activeCategory, getCurrentCategoryImages()[currentImageIndex])"
               [alt]="'Lightbox image'"
-              (load)="onLightboxImageLoad()"
-              (error)="onLightboxImageError()"
               class="lightbox-image"
-              [class.loaded]="lightboxImageLoaded">
-            
+            />
+
             <div class="image-info">
               <h3>{{ getCurrentImageTitle() }}</h3>
               <p>{{ getCurrentImageCategory() }}</p>
             </div>
           </div>
-          
+
           <div class="lightbox-nav">
             <button class="nav-btn prev" (click)="previousImage()">
               <i class="fas fa-chevron-left"></i>
@@ -168,15 +137,19 @@ import { CommonModule } from '@angular/common';
               <i class="fas fa-chevron-right"></i>
             </button>
           </div>
-          
+
           <div class="lightbox-thumbnails">
-            <div class="lightbox-thumbnail" 
-                 *ngFor="let image of getCurrentCategoryImages(); let i = index"
-                 [class.active]="i === currentImageIndex"
-                 (click)="goToImage(i)">
-              <img [src]="getOptimizedImagePath(activeCategory, image, 'thumb')" 
-                   [alt]="'Thumbnail ' + (i + 1)"
-                   loading="lazy">
+            <div
+              class="lightbox-thumbnail"
+              *ngFor="let image of getCurrentCategoryImages(); let i = index"
+              [class.active]="i === currentImageIndex"
+              (click)="goToImage(i)"
+            >
+              <img
+                [src]="getImagePath(activeCategory, image)"
+                [alt]="'Thumbnail ' + (i + 1)"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
@@ -184,7 +157,7 @@ import { CommonModule } from '@angular/common';
     </section>
   `,
   styles: [`
-    .gallery {
+     .gallery {
       padding: 100px 0;
       background: linear-gradient(135deg, #1a2a3a 0%, #2d4a6b 100%);
       position: relative;
@@ -285,27 +258,20 @@ import { CommonModule } from '@angular/common';
       border-radius: 15px;
     }
 
-    /* Image Styles with Progressive Loading */
+    /* Image Styles */
     .carousel-image,
     .gallery-image,
     .lightbox-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
+      /* make images visible by default */
+      opacity: 1;
       transition: opacity 0.5s ease-in-out;
-      /* Image optimization for faster loading */
       image-rendering: -webkit-optimize-contrast;
       image-rendering: -moz-crisp-edges;
       image-rendering: crisp-edges;
-      /* Reduce image quality for faster loading on mobile */
       image-rendering: pixelated;
-    }
-
-    .carousel-image.loaded,
-    .gallery-image.loaded,
-    .lightbox-image.loaded {
-      opacity: 1;
     }
 
     /* Main Carousel */
@@ -929,425 +895,337 @@ import { CommonModule } from '@angular/common';
     }
   `]
 })
-export class GalleryComponent implements OnInit, OnDestroy, AfterViewInit {
-  activeCategory = 'frezebi';
-  lightboxOpen = false;
-  currentLightboxImage = '';
-  currentImageIndex = 0;
-  currentSlide = 0;
-  isAutoplayActive = true;
-  autoplayInterval: any;
-  
-  // Image loading states
-  imageLoaded: boolean[] = [];
-  galleryImageLoaded: { [key: string]: boolean[] } = {};
-  lightboxImageLoaded = false;
-  
-  // Touch/swipe variables
-  touchStartX = 0;
-  touchStartY = 0;
-  touchEndX = 0;
-  touchEndY = 0;
-  minSwipeDistance = 50;
+// export class GalleryComponent implements OnInit, OnDestroy {
+//    categories = [
+//     { key: 'frezebi', name: 'ფრეზები' },
+//     { key: 'cirkuli', name: 'ცირკული ხერხები' },
+//     { key: 'lenturi', name: 'ლენტური ხერხები' },
+//     { key: 'fuganebi', name: 'ფუგანები' }
+//   ];
 
-  // Intersection Observer for lazy loading
-  private observer: IntersectionObserver | null = null;
+//   allImages: Record<string, string[]> = {
+//     frezebi: [
+//       'IMG_8035.JPG','IMG_8037.JPG','IMG_8040.JPG','IMG_8047.JPG',
+//       'IMG_8076.JPG','IMG_8077.JPG','almas.jpg','almas patara.jpg',
+//       'mwvane.jpg','oval.jpg','pirebi.jpg','sam piriani.jpg',
+//       'samk shtamp.jpg','shtampi.jpg','sul patara almas.jpg','yviteli.jpg'
+//     ],
+//     cirkuli: [
+//       '369421033_989795648754152_5942018697328113652_n.jpg',
+//       '397943109_3648447392099634_2870897858034374988_n.jpg',
+//       '399925681_236709735906756_9167162424002679429_n.jpg',
+//       '399945711_3451246038354560_3658791609130255930_n.jpg',
+//       '400693450_653873343617285_8109933589587951763_n.jpg',
+//       'cirkul.jpg','IMG_9085.JPG'
+//     ],
+//     lenturi: [
+//       '399846244_358388080061629_8178238030818943176_n.jpg',
+//       '7777.JPG','axali 10.jpg','lent.jpg'
+//     ],
+//     fuganebi: [
+//       '20230304_093527.jpg','397094430_1023519958973654_2715802772958299837_n.jpg',
+//       '403397993_1105942323740318_2929485730047593812_n.jpg',
+//       'figani.jpg','fugan.jpg','fugani12.jpg','fugani124.jpg',
+//       'good.jpg','IMG_7969.JPG'
+//     ]
+//   };
 
-  categories = [
+//   // For showcase, we'll use the first image from each category
+//   showcaseImages = this.categories.map(category => this.allImages[category.key][0]);
+//   showcaseCategories = this.categories.map(category => category.key);
+
+//   currentSlide = 0;
+//   activeCategory = this.categories[0].key;
+//   lightboxOpen = false;
+//   currentImageIndex = 0;
+//   isAutoplayActive = true;
+//   autoplayInterval: any = null;
+
+//   // Base path for your images (adjust based on your folder structure)
+//   private baseImagePath = '/assets/images/'; // or just '/images/' if directly in public
+
+//   ngOnInit() {
+//     this.startAutoplay();
+//   }
+
+//   ngOnDestroy() {
+//     this.stopAutoplay();
+//   }
+
+// getImagePath(category: string, image: string): string {
+//   return `${this.baseImagePath}${category}/${image}`;
+// }
+
+
+//   handleImageError(event: any) {
+//     // Set a placeholder image if the original fails to load
+//     console.error(`Image failed to load: ${event.target.src}`);
+//     event.target.src = 'https://placehold.co/800x500/2c3e50/ecf0f1?text=Image+Not+Found';
+//     event.target.onerror = null; // Prevent infinite loop
+//   }
+
+//   // The rest of your methods remain the same
+//   getCategoryName(categoryKey: string): string {
+//     const category = this.categories.find(c => c.key === categoryKey);
+//     return category ? category.name : 'Unknown Category';
+//   }
+
+//   getImageTitle(image: string): string {
+//     // Remove file extension and replace underscores with spaces
+//     return image.split('.')[0].replace(/_/g, ' ');
+//   }
+
+//   getCategoryImages(): string[] {
+//     return this.allImages[this.activeCategory] || [];
+//   }
+
+//   getCurrentCategoryImages(): string[] {
+//     return this.getCategoryImages();
+//   }
+
+//   getCurrentImageTitle(): string {
+//     const images = this.getCurrentCategoryImages();
+//     return this.getImageTitle(images[this.currentImageIndex]);
+//   }
+
+//   getCurrentImageCategory(): string {
+//     return this.getCategoryName(this.activeCategory);
+//   }
+
+//   previousSlide() {
+//     this.currentSlide = this.currentSlide === 0 ? this.showcaseImages.length - 1 : this.currentSlide - 1;
+//   }
+
+//   nextSlide() {
+//     this.currentSlide = this.currentSlide === this.showcaseImages.length - 1 ? 0 : this.currentSlide + 1;
+//   }
+
+//   goToSlide(index: number) {
+//     this.currentSlide = index;
+//   }
+
+//   toggleAutoplay() {
+//     if (this.isAutoplayActive) {
+//       this.stopAutoplay();
+//     } else {
+//       this.startAutoplay();
+//     }
+//   }
+
+//   startAutoplay() {
+//     this.isAutoplayActive = true;
+//     if (this.autoplayInterval) clearInterval(this.autoplayInterval);
+    
+//     this.autoplayInterval = setInterval(() => {
+//       this.nextSlide();
+//     }, 5000);
+//   }
+
+//   stopAutoplay() {
+//     this.isAutoplayActive = false;
+//     if (this.autoplayInterval) {
+//       clearInterval(this.autoplayInterval);
+//       this.autoplayInterval = null;
+//     }
+//   }
+
+//   setActiveCategory(categoryKey: string) {
+//     this.activeCategory = categoryKey;
+//   }
+
+//   openLightbox(index: number) {
+//     this.currentImageIndex = index;
+//     this.lightboxOpen = true;
+//   }
+
+//   openShowcaseLightbox(index: number) {
+//     // For showcase lightbox, we need to set the active category first
+//     this.setActiveCategory(this.showcaseCategories[index]);
+//     this.openLightbox(0); // Always show first image of the category
+//   }
+
+//   closeLightbox() {
+//     this.lightboxOpen = false;
+//   }
+
+//   previousImage() {
+//     const images = this.getCurrentCategoryImages();
+//     this.currentImageIndex = this.currentImageIndex === 0 ? images.length - 1 : this.currentImageIndex - 1;
+//   }
+
+//   nextImage() {
+//     const images = this.getCurrentCategoryImages();
+//     this.currentImageIndex = this.currentImageIndex === images.length - 1 ? 0 : this.currentImageIndex + 1;
+//   }
+
+//   goToImage(index: number) {
+//     this.currentImageIndex = index;
+//   }
+
+//   trackByImage(index: number, image: string): string {
+//     return image;
+//   }
+// }
+
+export class GalleryComponent implements OnInit, OnDestroy {
+ categories = [
     { key: 'frezebi', name: 'ფრეზები' },
     { key: 'cirkuli', name: 'ცირკული ხერხები' },
     { key: 'lenturi', name: 'ლენტური ხერხები' },
     { key: 'fuganebi', name: 'ფუგანები' }
   ];
 
-  showcaseImages: string[] = [];
-  showcaseCategories: string[] = [];
+  allImages: Record<string, string[]> = {
+    frezebi: [
+      'IMG_8035.JPG','IMG_8037.JPG','IMG_8040.JPG','IMG_8047.JPG',
+      'IMG_8076.JPG','IMG_8077.JPG','almas.jpg','almas patara.jpg',
+      'mwvane.jpg','oval.jpg','pirebi.jpg','sam piriani.jpg',
+      'samk shtamp.jpg','shtampi.jpg','sul patara almas.jpg','yviteli.jpg'
+    ],
+    cirkuli: [
+      '369421033_989795648754152_5942018697328113652_n.jpg',
+      '397943109_3648447392099634_2870897858034374988_n.jpg',
+      '399925681_236709735906756_9167162424002679429_n.jpg',
+      '399945711_3451246038354560_3658791609130255930_n.jpg',
+      '400693450_653873343617285_8109933589587951763_n.jpg',
+      'cirkul.jpg','IMG_9085.JPG'
+    ],
+    lenturi: [
+      '399846244_358388080061629_8178238030818943176_n.jpg',
+      '7777.JPG','axali 10.jpg','lent.jpg'
+    ],
+    fuganebi: [
+      '20230304_093527.jpg','397094430_1023519958973654_2715802772958299837_n.jpg',
+      '403397993_1105942323740318_2929485730047593812_n.jpg',
+      'figani.jpg','fugan.jpg','fugani12.jpg','fugani124.jpg',
+      'good.jpg','IMG_7969.JPG'
+    ]
+  };
+
+  showcaseImages = this.categories.map(category => this.allImages[category.key][0]);
+  showcaseCategories = this.categories.map(category => category.key);
+
+  currentSlide = 0;
+  activeCategory = this.categories[0].key;
+  lightboxOpen = false;
+  currentImageIndex = 0;
+  isAutoplayActive = true;
+  autoplayInterval: any = null;
+
+  // public/ ში რომ გაქვს პირდაპირ ფოლდერები
+  private baseImagePath = '/';
 
   ngOnInit() {
-    this.initializeImageLoadingStates();
-    this.generateRandomShowcase();
     this.startAutoplay();
-  }
-
-  ngAfterViewInit() {
-    this.setupIntersectionObserver();
   }
 
   ngOnDestroy() {
     this.stopAutoplay();
-    if (this.observer) {
-      this.observer.disconnect();
-    }
   }
 
-  private initializeImageLoadingStates() {
-    // Initialize loading states for showcase images
-    this.imageLoaded = new Array(6).fill(false);
-    
-    // Initialize loading states for gallery images
-    this.categories.forEach(category => {
-      const images = this.getCategoryImages(category.key);
-      this.galleryImageLoaded[category.key] = new Array(images.length).fill(false);
-    });
+  getImagePath(category: string, image: string): string {
+    return `${this.baseImagePath}${category}/${image}`;
   }
 
-  private setupIntersectionObserver() {
-    // Create intersection observer for lazy loading
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target as HTMLImageElement;
-          const dataSrc = img.getAttribute('data-src');
-          if (dataSrc) {
-            img.setAttribute('src', dataSrc);
-            img.removeAttribute('data-src');
-            this.observer?.unobserve(img);
-          }
-        }
-      });
-    }, {
-      rootMargin: '50px 0px',
-      threshold: 0.1
-    });
+  handleImageError(event: any) {
+    console.error(`Image failed to load: ${event.target.src}`);
+    event.target.src = 'https://placehold.co/800x500/2c3e50/ecf0f1?text=Image+Not+Found';
+    event.target.onerror = null;
   }
 
-  // Image optimization methods - now using optimized images
-  getOptimizedImagePath(category: string, imageName: string, size: 'thumb' | 'small' | 'medium' | 'large' | 'xlarge' = 'medium'): string {
-    const basePath = `/assets/images/${category}/optimized`;
-    const nameWithoutExt = imageName.replace(/\.[^/.]+$/, '');
-    
-    // Return optimized image path with specified size
-    return `${basePath}/${nameWithoutExt}_${size}.jpg`;
+  getCategoryName(categoryKey: string): string {
+    const category = this.categories.find(c => c.key === categoryKey);
+    return category ? category.name : 'Unknown Category';
   }
 
-  // Method to get lighter images for faster loading
-  getLightImagePath(category: string, imageName: string): string {
-    // For mobile devices, use smaller images
-    const isMobile = window.innerWidth <= 768;
-    const size = isMobile ? 'small' : 'medium';
-    return this.getOptimizedImagePath(category, imageName, size);
+  getImageTitle(image: string): string {
+    return image.split('.')[0].replace(/_/g, ' ');
   }
 
-  // Image loading event handlers
-  onImageLoad(index: number) {
-    this.imageLoaded[index] = true;
-  }
-
-  onImageError(index: number) {
-    console.warn(`Failed to load showcase image ${index}`);
-    this.imageLoaded[index] = true; // Hide placeholder even on error
-  }
-
-  onGalleryImageLoad(index: number) {
-    if (this.galleryImageLoaded[this.activeCategory]) {
-      this.galleryImageLoaded[this.activeCategory][index] = true;
-    }
-  }
-
-  onGalleryImageError(index: number) {
-    console.warn(`Failed to load gallery image ${index} in category ${this.activeCategory}`);
-    if (this.galleryImageLoaded[this.activeCategory]) {
-      this.galleryImageLoaded[this.activeCategory][index] = true; // Hide placeholder
-    }
-  }
-
-  onLightboxImageLoad() {
-    this.lightboxImageLoaded = true;
-  }
-
-  onLightboxImageError() {
-    console.warn('Failed to load lightbox image');
-    this.lightboxImageLoaded = true; // Hide placeholder
-  }
-
-  // Track by function for better performance
-  trackByImage(index: number, image: string): string {
-    return image;
-  }
-
-  // Get current image name for lightbox
-  getCurrentImageName(): string {
-    const images = this.getCategoryImages();
-    return images[this.currentImageIndex] || '';
-  }
-
-  startAutoplay() {
-    if (this.isAutoplayActive) {
-      this.autoplayInterval = setInterval(() => {
-        this.nextSlide();
-      }, 5000);
-    }
-  }
-
-  stopAutoplay() {
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
-    }
-  }
-
-  toggleAutoplay() {
-    this.isAutoplayActive = !this.isAutoplayActive;
-    if (this.isAutoplayActive) {
-      this.startAutoplay();
-    } else {
-      this.stopAutoplay();
-    }
-  }
-
-  nextSlide() {
-    if (this.currentSlide < this.showcaseImages.length - 1) {
-      this.currentSlide++;
-    } else {
-      this.currentSlide = 0;
-    }
-  }
-
-  previousSlide() {
-    if (this.currentSlide > 0) {
-      this.currentSlide--;
-    } else {
-      this.currentSlide = this.showcaseImages.length - 1;
-    }
-  }
-
-  goToSlide(index: number) {
-    this.currentSlide = index;
-  }
-
-  setActiveCategory(category: string) {
-    this.activeCategory = category;
-    this.currentImageIndex = 0;
-    this.lightboxImageLoaded = false;
-  }
-
-  getCategoryImages(category?: string): string[] {
-    const targetCategory = category || this.activeCategory;
-    const categoryImages: { [key: string]: string[] } = {
-      frezebi: [
-        'IMG_8035.JPG',
-        'IMG_8037.JPG',
-        'IMG_8040.JPG',
-        'IMG_8047.JPG',
-        'IMG_8076.JPG',
-        'IMG_8077.JPG',
-        'almas.jpg',
-        'almas patara.jpg',
-        'mwvane.jpg',
-        'oval.jpg',
-        'pirebi.jpg',
-        'sam piriani.jpg',
-        'samk shtamp.jpg',
-        'shtampi.jpg',
-        'sul patara almas.jpg',
-        'yviteli.jpg'
-      ],
-      cirkuli: [
-        '369421033_989795648754152_5942018697328113652_n.jpg',
-        '397943109_3648447392099634_2870897858034374988_n.jpg',
-        '399925681_236709735906756_9167162424002679429_n.jpg',
-        '399945711_3451246038354560_3658791609130255930_n.jpg',
-        '400693450_653873343617285_8109933589587951763_n.jpg',
-        'cirkul.jpg',
-        'IMG_9085.JPG'
-      ],
-      lenturi: [
-        '399846244_358388080061629_8178238030818943176_n.jpg',
-        '7777.JPG',
-        'axali 10.jpg',
-        'lent.jpg'
-      ],
-      fuganebi: [
-        '20230304_093527.jpg',
-        '397094430_1023519958973654_2715802772958299837_n.jpg',
-        '403397993_1105942323740318_2929485730047593812_n.jpg',
-        'figani.jpg',
-        'fugan.jpg',
-        'fugani12.jpg',
-        'fugani124.jpg',
-        'good.jpg',
-        'IMG_7969.JPG'
-      ]
-    };
-    
-    return categoryImages[targetCategory] || [];
+  getCategoryImages(): string[] {
+    return this.allImages[this.activeCategory] || [];
   }
 
   getCurrentCategoryImages(): string[] {
     return this.getCategoryImages();
   }
 
-  getImageTitle(filename: string): string {
-    return filename.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
-  }
-
   getCurrentImageTitle(): string {
-    const images = this.getCategoryImages();
-    if (images[this.currentImageIndex]) {
-      return this.getImageTitle(images[this.currentImageIndex]);
-    }
-    return '';
+    const images = this.getCurrentCategoryImages();
+    return this.getImageTitle(images[this.currentImageIndex]);
   }
 
   getCurrentImageCategory(): string {
-    const categoryNames: { [key: string]: string } = {
-      frezebi: 'ფრეზები',
-      cirkuli: 'ცირკული ხერხები',
-      lenturi: 'ლენტური ხერხები',
-      fuganebi: 'ფუგანები'
-    };
-    return categoryNames[this.activeCategory] || '';
+    return this.getCategoryName(this.activeCategory);
+  }
+
+  previousSlide() {
+    this.currentSlide = this.currentSlide === 0 ? this.showcaseImages.length - 1 : this.currentSlide - 1;
+  }
+
+  nextSlide() {
+    this.currentSlide = this.currentSlide === this.showcaseImages.length - 1 ? 0 : this.currentSlide + 1;
+  }
+
+  goToSlide(index: number) {
+    this.currentSlide = index;
+  }
+
+  toggleAutoplay() {
+    if (this.isAutoplayActive) {
+      this.stopAutoplay();
+    } else {
+      this.startAutoplay();
+    }
+  }
+
+  startAutoplay() {
+    this.isAutoplayActive = true;
+    if (this.autoplayInterval) clearInterval(this.autoplayInterval);
+    this.autoplayInterval = setInterval(() => this.nextSlide(), 5000);
+  }
+
+  stopAutoplay() {
+    this.isAutoplayActive = false;
+    if (this.autoplayInterval) {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
+    }
+  }
+
+  setActiveCategory(categoryKey: string) {
+    this.activeCategory = categoryKey;
   }
 
   openLightbox(index: number) {
     this.currentImageIndex = index;
-    const images = this.getCategoryImages();
-    this.currentLightboxImage = `${this.activeCategory}/${images[index]}`;
     this.lightboxOpen = true;
-    this.lightboxImageLoaded = false;
-    this.stopAutoplay();
+  }
+
+  openShowcaseLightbox(index: number) {
+    this.setActiveCategory(this.showcaseCategories[index]);
+    this.openLightbox(0);
   }
 
   closeLightbox() {
     this.lightboxOpen = false;
-    this.startAutoplay();
-  }
-
-  nextImage() {
-    const images = this.getCategoryImages();
-    this.currentImageIndex = (this.currentImageIndex + 1) % images.length;
-    this.currentLightboxImage = `${this.activeCategory}/${images[this.currentImageIndex]}`;
-    this.lightboxImageLoaded = false;
   }
 
   previousImage() {
-    const images = this.getCategoryImages();
+    const images = this.getCurrentCategoryImages();
     this.currentImageIndex = this.currentImageIndex === 0 ? images.length - 1 : this.currentImageIndex - 1;
-    this.currentLightboxImage = `${this.activeCategory}/${images[this.currentImageIndex]}`;
-    this.lightboxImageLoaded = false;
+  }
+
+  nextImage() {
+    const images = this.getCurrentCategoryImages();
+    this.currentImageIndex = this.currentImageIndex === images.length - 1 ? 0 : this.currentImageIndex + 1;
   }
 
   goToImage(index: number) {
     this.currentImageIndex = index;
-    const images = this.getCategoryImages();
-    this.currentLightboxImage = `${this.activeCategory}/${images[index]}`;
-    this.lightboxImageLoaded = false;
   }
 
-  generateRandomShowcase() {
-    const allImages: { image: string; category: string }[] = [];
-    
-    // Collect all images from all categories
-    this.categories.forEach(category => {
-      const categoryImages = this.getCategoryImages(category.key);
-      categoryImages.forEach(image => {
-        allImages.push({ image, category: category.key });
-      });
-    });
-    
-    // Shuffle the array and take first 6 images
-    const shuffled = this.shuffleArray(allImages);
-    const selected = shuffled.slice(0, 6);
-    
-    this.showcaseImages = selected.map(item => item.image);
-    this.showcaseCategories = selected.map(item => item.category);
-  }
-
-  shuffleArray<T>(array: T[]): T[] {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-
-  getCategoryName(categoryKey: string): string {
-    const category = this.categories.find(cat => cat.key === categoryKey);
-    return category ? category.name : '';
-  }
-
-  openShowcaseLightbox(index: number) {
-    this.currentImageIndex = index;
-    const category = this.showcaseCategories[index];
-    const image = this.showcaseImages[index];
-    this.currentLightboxImage = `${category}/${image}`;
-    this.lightboxOpen = true;
-    this.lightboxImageLoaded = false;
-    this.stopAutoplay();
-  }
-
-  // Touch/Swipe methods
-  onTouchStart(event: TouchEvent) {
-    this.touchStartX = event.changedTouches[0].screenX;
-    this.touchStartY = event.changedTouches[0].screenY;
-  }
-
-  onTouchMove(event: TouchEvent) {
-    // Don't prevent default scrolling on mobile
-    // Only prevent if it's a horizontal swipe for carousel
-    const touch = event.changedTouches[0];
-    const deltaX = Math.abs(touch.screenX - this.touchStartX);
-    const deltaY = Math.abs(touch.screenY - this.touchStartY);
-    
-    // Only prevent default if it's clearly a horizontal swipe
-    if (deltaX > deltaY && deltaX > 20) {
-      event.preventDefault();
-    }
-  }
-
-  onTouchEnd(event: TouchEvent) {
-    this.touchEndX = event.changedTouches[0].screenX;
-    this.touchEndY = event.changedTouches[0].screenY;
-    this.handleSwipe();
-  }
-
-  handleSwipe() {
-    const distanceX = this.touchStartX - this.touchEndX;
-    const distanceY = this.touchStartY - this.touchEndY;
-    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
-    
-    if (isHorizontalSwipe && Math.abs(distanceX) > this.minSwipeDistance) {
-      if (distanceX > 0) {
-        // Swipe left - next slide
-        this.nextSlide();
-      } else {
-        // Swipe right - previous slide
-        this.previousSlide();
-      }
-    }
-  }
-
-  // Lightbox touch methods
-  onLightboxTouchStart(event: TouchEvent) {
-    this.touchStartX = event.changedTouches[0].screenX;
-    this.touchStartY = event.changedTouches[0].screenY;
-  }
-
-  onLightboxTouchMove(event: TouchEvent) {
-    // Allow scrolling within the lightbox content
-    event.stopPropagation();
-    // Don't prevent default to allow normal scrolling
-  }
-
-  onLightboxTouchEnd(event: TouchEvent) {
-    this.touchEndX = event.changedTouches[0].screenX;
-    this.touchEndY = event.changedTouches[0].screenY;
-    this.handleLightboxSwipe();
-  }
-
-  handleLightboxSwipe() {
-    const distanceX = this.touchStartX - this.touchEndX;
-    const distanceY = this.touchStartY - this.touchEndY;
-    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
-    
-    if (isHorizontalSwipe && Math.abs(distanceX) > this.minSwipeDistance) {
-      if (distanceX > 0) {
-        // Swipe left - next image
-        this.nextImage();
-      } else {
-        // Swipe right - previous image
-        this.previousImage();
-      }
-    }
+  trackByImage(index: number, image: string): string {
+    return image;
   }
 }
